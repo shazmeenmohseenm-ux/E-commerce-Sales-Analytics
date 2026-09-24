@@ -1,17 +1,11 @@
 \# E-commerce Sales Analytics
 
-
-
 \## Project Overview
-
-
 
 This project focuses on analyzing e-commerce sales, customer, product, and order data to generate actionable business insights.
 
 
-
 \## Objectives
-
 
 
 \- Analyze sales performance
@@ -38,12 +32,6 @@ This project focuses on analyzing e-commerce sales, customer, product, and order
 
 \- NumPy
 
-\- SQL
-
-\- MySQL
-
-\- Excel
-
 \- Power BI
 
 \- Git \& GitHub
@@ -64,13 +52,11 @@ This project focuses on analyzing e-commerce sales, customer, product, and order
 
 5\. Feature Engineering
 
-6\. SQL Analysis
+6\. Data Modeling
 
-7\. Data Modeling
+7\. Power BI Dashboard
 
-8\. Power BI Dashboard
-
-9\. Business Insights
+8\. Business Insights
 
 
 

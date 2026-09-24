@@ -80,8 +80,6 @@ E-commerce-Sales-Analytics/
 
 ├── src/
 
-├── sql/
-
 ├── reports/
 
 ├── dashboard/

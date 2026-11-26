@@ -370,25 +370,62 @@ Improve marketing and business strategies using data-driven insights.
 
 15. Project Structure
 
-E-commerce-Sales-Analytics/
-│
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── notebooks/
-│
-├── src/
-│
-├── reports/
-│
-├── dashboard/
-│
-├── docs/
-│
-├── README.md
-│
-└── .gitignore
+PROJECT REPO 
+ |
+├──  E-commerce Sales Analytics
+ | 
+ |    ├─ Data
+ |
+ |             ├── Raw
+ |                          ├── customer_master.csv
+ |                          ├── dataset_statistics.csv 
+ |                          ├──  ecommerce_sales_customer_analytics_150k.csv
+ |                          ├── order_items.csv
+ |                          ├── product_catalog.csv
+ |
+ |             ├── Processed Data
+ |           
+ |                         ├──  customer_master.csv
+ |                         ├──  dataset_statistics.csv 
+ |                         ├──  orders.csv
+ |                         ├──   products.csv
+ |                         ├──    Salesdata.csv
+ |  
+ |      ├── src
+ |                ├── Python_script(1).py
+ |                ├── Data Preprocessing.py 
+ |
+ |
+ |     ├──   Notebook
+ |               ├── Customer Segmentation
+ │              ├── Return prediction
+ |               └── Sales Forecasting 
+ |   
+
+ |        ├─ Data_Validation 
+ |                         ├── Data_Quality_Report.xlsx 
+ |                         ├── Missing_Value_Report.csv 
+ |                         ├── Duplicate_Report.csv 
+ |                         └── Validation_Report.md 
+ |      
+ |       
+ |   
+ |         ├── Dashboard
+ |                        ├── e-commerce_sales_analytics.pbix 
+ |                        
+ |   
+ |         ├─ Project_Documentation 
+ |     
+ |                  ├── Data _Dictionary.md
+ |                  ├──  Project Document 
+ |                  ├── Final_Project_Documentation.md
+ |        
+ |         ├── README.md
+ |                        └── .gitignore
+ |
+ |        
+└──          
+
 
 16. Installation and Execution
 

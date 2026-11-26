@@ -1,0 +1,3153 @@
+﻿PROJECT REPO 
+ |
+├──  E-commerce Sales Analytics
+ | 
+ |    ├─ Data
+ |
+ |             ├── Raw
+ |                          ├── customer_master.csv
+ |                          ├── dataset_statistics.csv 
+ |                          ├──  ecommerce_sales_customer_analytics_150k.csv
+ |                          ├── order_items.csv
+ |                          ├── product_catalog.csv
+ |
+ |             ├── Processed Data
+ |           
+ |                         ├──  customer_master.csv
+ |                         ├──  dataset_statistics.csv 
+ |                         ├──  orders.csv
+ |                         ├──   products.csv
+ |                         ├──    Salesdata.csv
+ |  
+ |      ├── src
+ |                ├── Python_script(1).py
+ |                ├── Data Preprocessing.py 
+ |
+ |
+ |     ├──   Notebook
+ |               ├── Customer Segmentation
+ │              ├── Return prediction
+ |               └── Sales Forecasting 
+ |   
+
+
+ |        ├─ Data_Validation 
+ |                         ├── Data_Quality_Report.xlsx 
+ |                         ├── Missing_Value_Report.csv 
+ |                         ├── Duplicate_Report.csv 
+ |                         └── Validation_Report.md 
+|      
+ |       
+ |   
+ |         ├── Dashboard
+ |                        ├── e-commerce_sales_analytics.pbix 
+ |                        
+ |   
+ |         ├─ Project_Documentation 
+ |     
+ |                  ├── Data _Dictionary.md
+ |                  ├──  Project Document 
+ |                  ├── Final_Project_Documentation.md
+ |        
+ |         ├── README.md
+ |                        └── .gitignore
+ |
+ |        
+└──          
+  
+
+1.Project Introduction :  
+1. The E-Commerce Sales Analytics project focuses on analyzing sales performance, customer behavior, product performance, and business profitability using real-world e-commerce data.
+
+
+2. The project uses five CSV files containing information about sales transactions, customers, products, orders, and dataset statistics. The data is processed through an ETL pipeline to ensure that it is clean, consistent, and suitable for further analysis.
+
+
+3. The ETL process includes extracting data from CSV files, performing data quality      checks, handling missing values, standardizing data types, and saving the transformed datasets for downstream analysis and dashboard development.
+
+
+4. The final objective is to prepare reliable datasets that can be used to develop meaningful business insights and support data-driven decision-making.
+
+
+5. Git and GitHub are used for version control, project documentation, and maintaining a structured history of project changes. 
+2.Business Problem Statement :
+1. The organization operates an e-commerce business across multiple customers,
+products, sales channels, regions, marketing campaigns, payment methods, and
+fulfillment operations. 
+2. As transaction volumes increase, analyzing business
+performance using raw transactional data becomes increasingly difficult.
+3. Management needs to understand where revenue and profit are being generated,
+which customers and products contribute the most value, which channels and
+marketing activities are effective, and where operational problems such as returns,
+cancellations, and delivery delays are occurring.
+Currently, the presence of multiple dimensions within the e-commerce data makes
+It is challenging to obtain a unified view of business performance. Without proper
+analytical reporting, decision-makers may struggle to:
+● Identify profitable and underperforming products
+● Understand customer purchasing behavior
+● Identify high-value and repeat customers
+● Evaluate sales and profitability across regions and channels
+● Measure marketing and campaign effectiveness
+● Monitor delivery and fulfillment performance
+● Understand return and cancellation patterns
+● Evaluate customer satisfaction and sentiment
+● Identify opportunities to improve customer retention
+● Monitor overall revenue and profitability trends
+Therefore, there is a need to develop an integrated e-commerce analytics solution
+that converts raw transactional data into actionable business insights through
+structured data modeling, KPIs, analytical measures, and interactive reporting
+Project Objective :
+To develop a comprehensive e-commerce analytics solution that enables
+stakeholders to monitor business performance, understand customer and product behavior, evaluate operational efficiency, and make informed strategic decisions
+using data-driven insights.
+Analyze sales performance
+● Track revenue, sales volume, order trends, and average order value.
+● Identify monthly, quarterly, and yearly sales trends.
+Measure profitability
+● Analyze total profit and profit margins.
+● Identify highly profitable and low-profit products, categories, and segments.
+Understand customer behavior
+● Analyze customer segments, customer types, repeat customers, and
+purchasing patterns.
+● Identify high-value customers using customer lifetime value.
+Evaluate product performance
+● Identify top-performing and underperforming products.
+● Compare product categories, subcategories, brands, and pricing.
+Analyze sales channels
+● Compare Website, Mobile App, and other sales channels.
+● Determine which channels generate higher revenue and profitability.
+Evaluate marketing performance
+● Analyze marketing channels, campaigns, coupon usage, and their
+relationship with sales performance.
+Monitor fulfillment and delivery
+● Evaluate delivery time against estimated delivery time.
+● Identify on-time, delayed, and other delivery outcomes.
+Analyze returns and cancellations
+● Measure return and cancellation rates.
+● Identify major return reasons and products/categories associated with
+returns.
+Measure customer satisfaction
+● Analyze customer ratings and review sentiment.
+● Identify relationships between service experience and customer
+satisfaction.
+Analyze loyalty behavior
+● Evaluate loyalty points earned and redeemed.
+● Understand repeat-customer behavior and customer retention patterns
+3. Dataset Overview : 
+The project consists of five CSV files:
+Dataset
+	Description
+	Product Catalog
+	Contains information about products available for sale.
+	Customer Master
+	Contains customer details and customer-related attributes.
+	Dataset Statistics
+	Contains statistical information about the datasets.
+	Order Items
+	Contains order-level or item-level transaction information.
+	E-commerce Sales and Customer Analytics
+	Contains sales transactions, customer information, financial metrics, delivery details, and customer analytics.
+	The E-commerce Sales and Customer Analytics dataset is the primary dataset used for sales and customer analysis.
+ It contains financial columns such as gross sales, net sales, product cost, profit, and profit margin percentage, along with customer, order, payment, delivery, and marketing attributes.
+4.ETL Process : 
+1.Extract : 
+The data was extracted from five CSV files provided for the E-commerce Sales Analytics project.
+The files were loaded into Python using the Pandas library. Each dataset was inspected to understand its structure, column names, data types, and data quality.
+2. Transform :
+The transformation process included the following activities:
+Data Quality Assessment
+* Checked all five datasets for duplicate records.
+* Checked for missing values.
+* Reviewed column data types.
+* Identified missing values in the E-commerce Sales and Customer Analytics dataset.
+The Product Catalog, Customer Master, Dataset Statistics, and Order Items datasets contained no duplicate records or missing values based on the completed data quality checks.
+The E-commerce Sales and Customer Analytics dataset contained missing values in more than five columns. These included both dimension and numeric columns.
+1.Missing Value Treatment : 
+Missing values were analyzed based on their business meaning rather than being uniformly removed or statistically imputed. return_status and return_reason were replaced with Not Returned and No Return, respectively, because the dataset supported these interpretations. Missing values in date/time, delivery, customer rating/review, campaign, and coupon fields were retained where their values could not be reliably determined from the available data. No records were deleted solely because of missing values. 
+2.Data Type Conversion:
+Column
+	Original Data Type
+	Converted Data Type
+	Reason
+	order_date
+	Object
+	datetime64[ns]
+	Required for date-based analysis and time trends
+	order_time
+	Object
+	datetime64[ns]
+	Converted to a datetime format for time-related analysis
+	customer_postal_code
+	Integer
+	Object/String
+	Postal codes are identifiers, not numerical values
+	 Data types were reviewed to ensure that each column was stored in an appropriate format for analysis. The order_date and order_time columns were converted to datetime format to support date and time-based analysis. The customer_postal_code column was converted from integer to string because postal codes represent identifiers rather than numerical measures. Other numerical, categorical, and Boolean columns were retained in their appropriate data types.After conversion, the data types were rechecked using the Pandas datatypes function to confirm that the required columns were stored correctly.
+
+
+3.Data Quality Report : 
+The data quality assessment was performed on all five datasets used in the E-Commerce Sales Analytics project. The assessment included checking for duplicate records, missing values, and data types.
+Duplicate Records :
+No duplicate records were identified in the five datasets during the completed data quality checks.
+4.Missing Values :
+The Product Catalog, Customer Master, Dataset Statistics, and Order Items datasets were checked for missing values. The main Sales and Customer Analytics dataset contained missing values in several columns.
+The following table presents the missing-value counts identified in the Sales and Customer Analytics dataset.
+Column Name
+	Missing Records
+	Column Type
+	delivery_days
+	24,557
+	Numeric
+	estimated_delivery_days
+	24,557
+	Numeric
+	delivery_status
+	0
+	Dimension
+	return_status
+	128,654
+	Dimension
+	return_reason
+	128,654
+	Dimension
+	customer_rating
+	24,557
+	Numeric
+	review_sentiment
+	24,557
+	Dimension
+	customer_review
+	24,557
+	Dimension
+	marketing_channel
+	0
+	Dimension
+	campaign_name
+	83,233
+	Dimension
+	coupon_code
+	110,502
+	Dimension
+	The missing values were concentrated in delivery-related, return-related, customer review, marketing campaign, and coupon-related columns.
+5.Order Date & Order Time: 
+138,116 missing values were identified in both order_date and order_time. The missing values occur across multiple order statuses and sales channels, including completed orders. No alternative date/time field was available in the dataset to reliably recover these values. Therefore, the missing dates and times were retained as blank values rather than statistically imputed, to avoid introducing inaccurate temporal information. 
+6.Delivery Days & Estimated Delivery Days: 
+Both columns contain 24,557 missing values. The missing values occur only for Returned, Cancelled, and Pending orders. Since delivery duration is not applicable or may not yet be available for these order statuses, the missing values were retained as blank rather than imputed. No records were removed. 
+7.Return Reason: 
+The return_reason column initially contained 128,654 missing values. These records corresponded to orders that were not returned. The missing values were therefore replaced with No Return. Existing returned orders contained specific return reasons such as Wrong Product, Damaged Product, Size Issue, and Defective Product. After transformation, no missing values remained.
+8.Customer Rating : 
+The customer_rating column contains 24,557 missing values. These missing values occur only for Returned, Cancelled, and Pending orders, while completed orders have ratings available. Since the missing values indicate that no rating was available, they were retained as blank rather than replaced with a statistical value such as mean or median. 
+9.Review Sentiment: 
+The review_sentiment column contains 24,557 missing values. These records correspond to Returned, Cancelled, and Pending orders. Since no customer review/sentiment is available for these records, the missing values were retained rather than assigning an assumed sentiment. 
+10.Customer Review: 
+The customer_review column contains 24,557 missing values. These records correspond to Returned, Cancelled, and Pending orders. Since no customer review was available for these records, the missing values were retained as blank rather than replacing them with assumed text. 
+11.Campaign Name: 
+The campaign_name column contained 83,233 missing values across all marketing channels. Existing campaign values included Default_Campaign and several specific campaign names. However, Default_Campaign was used only for selected marketing channels and therefore could not reliably represent all missing campaign values. The missing values were retained as blank to avoid assigning incorrect campaign information. 
+12.Coupon Code: 
+The coupon_code column contained 110,502 missing values. Missing coupon codes were observed across different payment statuses and were also associated with both zero and non-zero discount amounts. Therefore, the missing values could not reliably be interpreted as No Coupon. The missing values were retained as blank to avoid making unsupported assumptions about coupon usage. 
+
+
+13.Data Quality Findings :
+The missing values were reviewed based on the business meaning and data type of each column. Different treatment methods were selected for dimension and numeric columns to prepare the data for further analysis.
+
+
+2.Data Cleaning and Transformation :
+The data cleaning and transformation process was performed using Python and Pandas. The objective was to prepare the five datasets for analysis by identifying data quality issues, handling missing values, and standardizing data types.
+Missing Value Treatment :
+Missing values in dimension columns were replaced with Unknown where appropriate. This helped preserve the records while providing a consistent category for missing information.
+Numeric columns were handled using mean or median imputation, depending on the column and the selected treatment method.
+Column
+	Missing
+	Treatment
+	order_date
+	138,116
+	Keep blank
+	order_time
+	138,116
+	Keep blank
+	delivery_days
+	24,557
+	Keep blank
+	estimated_delivery_days
+	24,557
+	Keep blank
+	customer_rating
+	24,557
+	Keep blank
+	review_sentiment
+	24,557
+	Keep blank
+	customer_review
+	24,557
+	Keep blank
+	campaign_name
+	83,233
+	Keep blank
+	coupon_code
+	110,502
+	Keep blank
+	Data Quality and Missing Value Treatment :
+The data quality assessment was performed on all five datasets used in the E-commerce Sales Analytics project.
+Duplicate Record Validation :
+Dataset
+	Duplicate Records
+	Product Catalog
+	0
+	Customer Master
+	0
+	Dataset Statistics
+	0
+	Order Items
+	0
+	Sales and Customer Analytics
+	0
+	Duplicate records were checked in all five datasets. No duplicate records were identified.
+Missing Value Treatment :
+Missing values were identified in the Sales and Customer Analytics dataset. The treatment was based on the data type and business meaning of each column.
+Numeric columns:
+* delivery_days: Missing values replaced using the mean.
+* estimated_delivery_days: Missing values replaced using the mean.
+* customer_rating: Missing values replaced using the median.
+Dimension columns:
+Missing values in categorical columns were replaced with Unknown where appropriate.The mean was used for delivery-related numeric columns because it provides a central estimate of the available values. The median was used for customer ratings because it is less affected by extreme values.
+Data Type Conversion :
+The order_date column in the Sales and Customer Analytics dataset was converted to the appropriate date data type.
+This transformation supports date-based analysis, including monthly sales trends, yearly comparisons, and time-based business reporting.
+Duplicate Record Validation :
+Duplicate records were checked across the five datasets. No duplicate records were identified during the completed validation process.
+Transformed Data Storage :
+After completing the cleaning and transformation process, the processed datasets were saved in the following folder:
+C:\Users\Imshu\OneDrive\Pictures\Desktop\Project repo\E-commerce Sales Analytics\data\processed_data
+The transformed files are ready for the next stage of the project, including data modeling, KPI development, and dashboard creation.
+Date Table Creation and Validation : 
+A Date Table was created using Python and Pandas to support time-based analysis in the E-commerce Sales Analytics project.
+The Date Table contains calendar dates along with year, month number, month name, quarter, day number, day name, and week number columns.
+The date column was converted to the datetime data type. Additional date-related columns were derived using Pandas datetime functions.
+Data Quality Validation :
+The Date Table was validated for missing values and duplicate records.
+* Missing values: 0
+* Duplicate records: 0
+The Date Table was successfully validated and prepared for use in time-based analysis and Power BI data modeling.
+Categorical Data Validation:
+Order Status:
+ The order_status column was checked for categorical consistency. Four valid categories were identified: Completed, Returned, Cancelled, and Pending. No inconsistent or duplicate category labels were found. 
+Sales Channel:
+The sales_channel column was checked for consistency and unique category values. Four valid categories were identified: Mobile App, Website, Marketplace, and Social Media. No inconsistent or duplicate category labels were found, so no transformation was required. 
+Payment Method:
+ The payment_method column was checked for unique values and categorical consistency. Seven valid payment methods were identified: Credit Card, Debit Card, PayPal, Digital Wallet, Cash on Delivery, Buy Now Pay Later, and Bank Transfer. No inconsistent or duplicate category labels were identified, so no transformation was required.
+Profit and Profit Margin Validation:
+Negative profit values were investigated to determine whether they represented data errors. The negative-profit records showed that product costs exceeded net sales, resulting in legitimate losses. Corresponding negative profit margins were also observed. Therefore, these values were considered valid business outcomes and were retained without modification. 
+Feature Engineering
+Feature engineering was performed to create meaningful and analysis-ready features from the existing dataset. A total of six derived features were created to support time-based sales analysis and customer segmentation.
+1. Date-Based Features
+The order_date column was used to derive the following features:
+Feature
+	Description
+	Purpose
+	order_year
+	Extracted year from the order date
+	To analyze yearly sales trends
+	order_month
+	Extracted month number from the order date
+	To analyze monthly sales patterns
+	order_month_name
+	Extracted month name from the order date
+	To make monthly analysis easier to interpret
+	order_weekday
+	Extracted day of the week
+	To identify order patterns by weekday
+	order_day
+	Extracted day of the month
+	To analyze daily order activity
+	2. Customer Age Group
+The customer_age column was transformed into age_group by categorizing customers into predefined age ranges.
+The age groups created were:
+* 17–25
+* 26–35
+* 36–45
+* 46–55
+* 56–65
+* 66–75
+This feature helps analyze customer behavior and sales performance across different age groups.
+Feature Engineering Outcome
+The following six derived features were added to the dataset:
+order_year, order_month, order_month_name, order_weekday, order_day, and age_group.
+These features provide additional dimensions for time-based sales analysis, trend analysis, and customer segmentation.
+Git & GitHub – Version Control
+1. Overview
+Git was used as the version control system for the E-commerce Sales Analytics project to track project changes, maintain different versions of files, and preserve a history of project development.
+GitHub is used as the remote repository platform to store and manage the project code, documentation, datasets, and other project-related files.
+2. Git Repository Initialization
+A Git repository was initialized for the project using:
+git init
+This created a local Git repository and enabled version control for the project.
+3. Project Repository Structure
+The project was organized into structured folders to maintain the different components of the analytics workflow:
+PROJECT REPO/
+│
+└── E-commerce Sales Analytics/
+    │
+    ├── data/
+    │   ├── raw/
+    │   └── processed/
+    │
+    ├── docs/
+    │
+    ├── notebooks/
+    │
+    ├── src/
+    │
+    ├── sql/
+    │
+    ├── reports/
+    │
+    ├── dashboard/
+    │
+    ├── README.md
+    └── .gitignore
+4. Adding and Tracking Project Files
+Project files were added to Git using:
+git add .
+This stages the required project files so that they can be included in a commit.
+5. Git Commits
+Meaningful commit messages were used to maintain a clear history of project development.
+Commit 1 – Processed Data
+git commit -m "add processed data"
+This commit was used to add the processed/transformed project data to the repository.
+Commit 2 – Project Documentation and Gitignore
+git commit -m "Add project documentation and gitignore"
+This commit added:
+* .gitignore
+* data/data_dictionary.md
+* Project documentation files
+6. Git Branch
+The project was maintained on the main branch.
+The branch and repository status were verified using:
+git status
+The commit history was reviewed using:
+git log --oneline
+The commit history showed:
+20d2a9c (HEAD -> main) Add project documentation and gitignore
+ebd0bea add processed data
+7. .gitignore
+A .gitignore file was created to prevent unnecessary files from being tracked by Git.
+It can be used to exclude files such as:
+* Temporary files
+* Python cache files
+* Jupyter Notebook checkpoints
+* Environment/configuration files
+* Large or unnecessary local files
+* Sensitive information
+8. Data Dictionary
+A data_dictionary.md file was added under the data folder to document the datasets and their respective columns.
+This improves data understanding and provides a reference for team members working on the project.
+9. README Documentation
+A README.md file is maintained as the main documentation page for the project. It provides information such as:
+* Project overview
+* Business objective
+* Project structure
+* Technologies and tools used
+* Data sources
+* ETL process
+* Analysis workflow
+* Dashboard information
+* Git/GitHub workflow
+* Instructions for using the project
+10. Git Workflow Followed :
+The following Git workflow was followed during project development:
+Project Changes
+      ↓
+   git status
+      ↓
+   git add .
+      ↓
+   git commit -m "Meaningful message"
+      ↓
+   git log --oneline
+      ↓
+   GitHub Repository
+11. Benefits of Using Git & GitHub :
+Git and GitHub provide the following benefits for the project:
+* Maintains a history of project changes
+* Helps track modifications to files
+* Provides version control
+* Prevents accidental loss of previous work
+* Supports collaboration among team members
+* Makes project development more organized
+* Provides a centralized location for project documentation and code
+* Makes the project easier to maintain and review
+12. Current Status :
+The Git repository has been initialized and the project files have been committed successfully. Processed data, project documentation, the data dictionary, and .gitignore have been added to version control, with the project maintained on the main branch.
+
+
+Machine Learning — Customer Segmentation
+1. Overview
+As part of the E-Commerce Sales & Customer Analytics project, Machine Learning was implemented to segment customers based on their purchasing behavior, revenue contribution, profitability, order value, and product-return behavior.
+The objective of customer segmentation is to identify groups of customers with similar characteristics so that the business can develop targeted marketing, retention, loyalty, and customer-value strategies.
+The selected Machine Learning technique is K-Means Clustering, an unsupervised learning algorithm.
+ML Objective
+The primary objective is:
+To segment customers into meaningful groups based on their purchasing and behavioral characteristics and translate those clusters into actionable business segments.
+The final solution segments 24,911 customers into 5 customer groups.
+2. Machine Learning Workflow
+The complete customer segmentation workflow is:
+Raw E-Commerce Data
+        ↓
+Data Cleaning & Validation
+        ↓
+Data Transformation
+        ↓
+Customer-Level Aggregation
+        ↓
+Feature Engineering
+        ↓
+Feature Selection
+        ↓
+Feature Scaling
+        ↓
+K-Means Clustering
+        ↓
+Customer Cluster Assignment
+        ↓
+Cluster Profiling
+        ↓
+Business Interpretation
+        ↓
+Customer Segmentation
+        ↓
+Business Recommendations
+3. Source Data
+The project uses multiple CSV datasets to perform sales and customer analytics.
+Raw Data Files
+* customer_master.csv
+* dataset_statistics.csv
+* ecommerce_sales_customer_analytics_150k.csv
+* order_items.csv
+* product_catalog.csv
+The major analytical relationships are based on customer, order, product, and sales information.
+Important Business Keys
+The major keys used in the analytical process include:
+* customer_id
+* order_id
+* product_id
+These keys are used to connect transactional information with customer and product-level information.
+4. Data Preparation
+Before applying Machine Learning, the raw data was cleaned and transformed.
+The data preparation process included:
+1 Data Loading
+The CSV datasets were loaded into Python using Pandas.
+import pandas as pd
+
+
+sales = pd.read_csv(...)
+customer = pd.read_csv(...)
+2 Data Quality Checks
+The following checks were performed:
+* Dataset dimensions
+* Column names
+* Data types
+* Missing values
+* Duplicate records
+* Null-value analysis
+* Numerical statistics
+* Categorical value distributions
+* Relationship/key validation
+Duplicate analysis was performed across the project datasets, and no significant duplicate-record issue was identified in the datasets used for the analytical workflow.
+3 Data Type Transformation
+Important columns were converted to appropriate data types.
+For example:
+sales['order_date'] = pd.to_datetime(
+    sales['order_date'],
+    errors='coerce'
+)
+Other numerical and categorical columns were also reviewed and transformed where required.
+4 Missing-Value Treatment
+Missing values were analyzed according to the nature of the column.
+Examples:
+* Categorical fields → appropriate unknown/default category where applicable
+* Numerical fields → appropriate statistical treatment such as mean/median where applicable
+* Date/time fields → converted and validated
+* Optional marketing fields such as campaign and coupon information → analyzed separately
+The objective was to preserve useful information while preventing poor-quality data from affecting downstream analysis.
+5. Customer-Level Feature Engineering
+Machine Learning was performed at the customer level, rather than directly on individual transactions.
+Transactional data was aggregated to create one analytical record per customer.
+The resulting customer-level features describe customer purchasing behavior.
+Customer Features
+1 Total Orders
+Number of orders placed by the customer.
+Total_orders
+This represents purchase frequency.
+2 Total Quantity
+Total number of products purchased by the customer.
+Total_quantity
+This represents purchase volume.
+3 Total Sales
+Total sales/revenue generated by the customer.
+Total_sales
+This represents the customer's revenue contribution.
+4 Total Profit
+Total profit generated from the customer's purchases.
+Total_profit
+This represents customer profitability.
+
+
+5 Average Product Cost
+Average product cost associated with the customer's purchases.
+Average_product_cost
+This provides additional information about the type/value of products purchased.
+6 Average Discount
+Average discount associated with the customer's purchases.
+Average_discount
+This helps identify customers who may be more discount-sensitive.
+7 Average Order Value
+Average amount spent per order.
+Formula:
+Average Order Value = Total Sales / Total Orders
+Column:
+Average_order_value
+This identifies customers who make relatively high-value or low-value purchases.
+8 Profit Margin Percentage
+Customer-level profitability ratio.
+Formula:
+Profit Margin % = Total Profit / Total Sales × 100
+Column:
+profit_margin_percentage
+This measures the profitability of each customer's revenue.
+9 Returned Orders
+Number of returned orders associated with the customer.
+Returned_orders
+This provides information about customer return behavior.
+10 Return Rate
+Customer return rate.
+Formula:
+Return Rate = Returned Orders / Total Orders × 100
+Column:
+return_rate
+This identifies customers with unusually high or low return behavior.
+6. Features Used for K-Means
+The final K-Means segmentation used the following seven customer-level features:
+Features = [
+    'Total_orders',
+    'Total_quantity',
+    'Total_sales',
+    'Total_profit',
+    'profit_margin_percentage',
+    'Average_order_value',
+    'return_rate'
+]
+These features were selected because they capture multiple dimensions of customer behavior:
+Feature
+	Business Meaning
+	Total_orders
+	Purchase frequency
+	Total_quantity
+	Purchase volume
+	Total_sales
+	Revenue contribution
+	Total_profit
+	Customer profitability
+	profit_margin_percentage
+	Profitability efficiency
+	Average_order_value
+	Spending value per order
+	return_rate
+	Return behavior
+	Identifiers such as customer_id were not used as Machine Learning features because they are identifiers rather than behavioral variables.
+7. Feature Scaling
+Because the selected features have very different numerical ranges, feature scaling was required before applying K-Means.
+For example:
+* Total Sales may be in thousands
+* Total Orders may be single digits
+* Return Rate is a percentage
+* Profit Margin is a percentage
+Without scaling, large numerical features could disproportionately influence the distance calculation.
+Standardization was therefore applied using StandardScaler.
+“from sklearn.preprocessing import StandardScaler
+
+
+scaler = StandardScaler()
+
+
+X_scaled = scaler.fit_transform(X)”
+The scaled data was then provided to the K-Means algorithm.
+8. K-Means Clustering
+K-Means clustering was selected because customer segmentation is an unsupervised learning problem.
+There was no predefined customer segment label that the model needed to predict.
+Instead, the algorithm identifies customers with similar characteristics and groups them together.
+Model Configuration
+from sklearn.cluster import KMeans
+
+
+kmeans = KMeans(
+    n_clusters=5,
+    n_init=10,
+    random_state=42
+)
+Parameters:
+Parameter
+	Value
+	Purpose
+	n_clusters
+	5
+	Creates five customer segments
+	n_iniy
+	10
+	Runs K-Means with multiple initializations
+	random_state
+	42
+	Provides reproducible results
+	The cluster labels were assigned to each customer.
+customer_features['cluster'] = kmeans.fit_predict(X_scaled)
+
+
+9. Customer Distribution Across Clusters
+The final model divided 24,911 customers into five clusters.
+Cluster
+	Customers
+	Cluster 0
+	6,514
+	Cluster 1
+	7,169
+	Cluster 2
+	4,079
+	Cluster 3
+	2,938
+	Cluster 4
+	4,211
+	Total
+	24,911
+	Cluster labels are algorithm-generated identifiers. They do not inherently mean "good", "bad", "high-value", or "low-value".
+The business meaning of each cluster was determined through cluster profiling.
+10. Cluster Profiling
+After assigning customers to clusters, the average value of each customer feature was calculated for every cluster.
+The cluster profile was used to understand the characteristics of each customer segment.
+Cluster Profile
+Metric
+	Cluster 0
+	Cluster 1
+	Cluster 2
+	Cluster 3
+	Cluster 4
+	Total Orders
+	3.60
+	6.76
+	4.32
+	4.36
+	8.49
+	Total Quantity
+	17.00
+	36.38
+	28.21
+	21.56
+	53.57
+	Total Sales
+	₹3,316.48
+	₹8,074.21
+	₹8,497.61
+	₹4,707.45
+	₹14,719.26
+	Total Profit
+	₹1,455.20
+	₹3,495.98
+	₹2,533.43
+	₹2,256.96
+	₹5,851.28
+	Average Product Cost
+	₹470.95
+	₹620.96
+	₹1,108.75
+	₹558.09
+	₹941.12
+	Average Discount
+	₹144.75
+	₹187.88
+	₹482.09
+	₹122.30
+	₹310.51
+	Average Order Value
+	₹946.80
+	₹1,227.05
+	₹2,068.66
+	₹1,102.58
+	₹1,802.89
+	Profit Margin %
+	44.48%
+	43.67%
+	29.87%
+	48.93%
+	40.37%
+	Returned Orders
+	0.01
+	0.37
+	0.13
+	1.25
+	0.61
+	Return Rate
+	0.11%
+	5.26%
+	2.71%
+	30.99%
+	7.18%
+	
+
+11. Business Interpretation of Clusters
+Cluster 0 — Low-Value Occasional Customers
+Characteristics
+* Lowest average order frequency
+* Lowest average quantity
+* Lowest average sales
+* Lowest average order value
+* Very low return rate
+* Healthy profit margin
+Interpretation
+These customers purchase relatively infrequently and generate lower revenue compared with the other segments.
+Business Recommendation
+The business can focus on:
+* Increasing repeat purchases
+* Personalized recommendations
+* Re-engagement campaigns
+* Cross-selling
+* Targeted promotional offers
+Segment Label
+Low-Value Occasional Customers
+
+
+12. Cluster 1 — Regular & Profitable Customers
+Characteristics
+* 6.76 average orders
+* ₹8,074 average sales
+* ₹3,495.98 average profit
+* 43.67% average profit margin
+* 5.26% return rate
+Interpretation
+These customers purchase regularly and provide a healthy combination of revenue, order frequency and profitability.
+Business Recommendation
+Focus on:
+* Loyalty programs
+* Customer retention
+* Cross-selling
+* Personalized recommendations
+* Repeat-purchase campaigns
+Segment Label
+Regular & Profitable Customers
+13. Cluster 2 — High-Ticket Customers
+Characteristics
+* Average orders: 4.32
+* Average sales: ₹8,497.61
+* Average order value: ₹2,068.66
+* Highest AOV among the five clusters
+* Profit margin: 29.87%
+* Return rate: 2.71%
+Interpretation
+These customers do not purchase as frequently as Cluster 4, but their individual orders have a high monetary value.
+They are therefore characterized as high-ticket customers.
+Business Recommendation
+Focus on:
+* Premium products
+* Product bundles
+* Upselling
+* High-value product recommendations
+* Premium product campaigns
+Segment Label
+High-Ticket Customers
+14. Cluster 3 — High-Return Customers
+Characteristics
+* Average sales: ₹4,707.45
+* Average profit: ₹2,256.96
+* Highest profit margin: 48.93%
+* Highest return rate: 30.99%
+* Lowest average discount among the clusters
+Interpretation
+This is the most important cluster from a risk-analysis perspective.
+These customers generate a relatively healthy profit margin but have a substantially higher return rate than the other customer groups.
+Business Recommendation
+The company should investigate:
+* Products frequently purchased by these customers
+* Product categories associated with returns
+* Brands with high return rates
+* Reasons for product returns
+* Delivery-related issues
+* Product expectation/mismatch
+* Relationship between discounts and returns
+The objective should not simply be to remove these customers. Instead, the business should identify and reduce the causes of their high return behavior.
+Segment Label
+High-Return, High-Margin Customers
+15. Cluster 4 — VIP / High-Value Customers
+Characteristics
+* Highest average orders: 8.49
+* Highest average quantity: 53.57
+* Highest average sales: ₹14,719.26
+* Highest average profit: ₹5,851.28
+* High average order value: ₹1,802.89
+* Profit margin: 40.37%
+* Return rate: 7.18%
+Interpretation
+This is the strongest customer segment in terms of purchasing frequency, quantity, revenue and profit contribution.
+These customers should be treated as high-value/VIP customers.
+Business Recommendation
+Focus on:
+* VIP loyalty programs
+* Exclusive offers
+* Early access to products
+* Personalized recommendations
+* Premium customer support
+* Cross-selling and upselling
+* Customer retention
+Segment Label
+VIP / High-Value Customers
+16. Final Customer Segmentation
+The final segmentation can be summarized as:
+Cluster
+	Segment
+	Primary Characteristic
+	0
+	Low-Value Occasional Customers
+	Low frequency and low revenue
+	1
+	Regular & Profitable Customers
+	Consistent purchases and healthy profitability
+	2
+	High-Ticket Customers
+	High spending per order
+	3
+	High-Return, High-Margin Customers
+	High profitability but very high returns
+	4
+	VIP / High-Value Customers
+	Highest frequency, revenue and profit
+	
+
+17. Key Business Insights
+Insight 1 — VIP Customers
+Cluster 4 represents the most valuable customer group, generating the highest average sales and profit while also having the highest purchase frequency.
+Insight 2 — High-Ticket Customers
+Cluster 2 has the highest average order value, indicating customers who make relatively fewer purchases but spend significantly more per order.
+Insight 3 — Return Risk
+Cluster 3 has a return rate of 30.99%, significantly higher than the other segments. This requires detailed product and return-cause analysis.
+Insight 4 — Low-Value Customers
+Cluster 0 has the lowest sales and order frequency, making it a potential target for customer activation and retention campaigns.
+Insight 5 — Profitability
+Cluster 3 has the highest profit margin at 48.93%, while Cluster 4 produces the highest absolute average profit at ₹5,851.28.
+This distinction is important:
+Highest profit margin does not necessarily mean highest total profit.
+18. ML Output
+The final ML output is a customer-level dataset containing the original customer features and an assigned cluster.
+Conceptually:
+Customer
+   ↓
+Customer Features
+   ↓
+Scaled Features
+   ↓
+K-Means
+   ↓
+Cluster Label
+Example:
+Customer → Features → Cluster 0
+Customer → Features → Cluster 1
+Customer → Features → Cluster 2
+Customer → Features → Cluster 3
+Customer → Features → Cluster 4
+The cluster label can subsequently be used in Power BI to analyze:
+* Customer segment distribution
+* Sales by segment
+* Profit by segment
+* Orders by segment
+* Return rate by segment
+* Average order value by segment
+* Segment contribution to business performance
+19. Conclusion
+The customer segmentation component successfully applies an Unsupervised Machine Learning approach to identify customer groups without relying on a predefined target variable.
+K-Means clustering was used to group customers based on similarities in their purchasing frequency, purchase volume, revenue contribution, profitability, order value and return behavior.
+Silhouette-based evaluation was used as part of the process for determining an appropriate clustering structure.
+The resulting clusters were then profiled and converted into meaningful business segments.
+The final Machine Learning output consists of:
+1. Customer-level segmentation
+2. Cluster-level customer profiling
+3. Business interpretation of each segment
+4. Segment-specific recommendations
+The resulting segmentation dataset can be integrated into Power BI to provide interactive customer-segment analysis and support data-driven business decisions.
+
+
+E-Commerce Order Return Analysis and Prediction
+1. Project Title
+E-Commerce Order Return Analysis and Prediction Using Machine Learning
+2. Project Overview
+The objective of this project is to analyze e-commerce order data and build a machine learning system to predict whether an order is likely to be returned.
+The project combines exploratory data analysis, business analysis, feature engineering, data leakage detection, data preprocessing, and machine learning classification.
+The analysis phase was performed using data analysis techniques and Excel-based business analysis, while the prediction phase was implemented using Python and machine learning.
+The primary machine learning algorithm selected for prediction is XGBoost, a supervised learning algorithm based on gradient-boosted decision trees.
+3. Business Problem
+Product returns are an important challenge for e-commerce businesses.
+A high number of returns can result in:
+* Additional shipping and reverse-logistics costs
+* Inventory management problems
+* Reduced profit margins
+* Increased operational workload
+* Customer dissatisfaction
+* Additional product handling and processing costs
+Therefore, the business needs a way to identify orders that have a higher probability of being returned.
+Business Objective
+The objective is to develop a predictive system that can answer:
+"Given the information available when an order is placed, how likely is that order to be returned?"
+The prediction can help businesses identify high-risk orders and support better operational and customer-management decisions.
+4. Project Objectives
+The main objectives of this project are:
+1. Analyze historical e-commerce order and return data.
+2. Understand return behavior and identify important business patterns.
+3. Clean and prepare the dataset for machine learning.
+4. Define a binary return prediction target.
+5. Identify and remove data leakage.
+6. Engineer useful order and date/time features.
+7. Handle missing values and categorical variables.
+8. Build a machine learning model for return prediction.
+9. Evaluate the model using appropriate classification metrics.
+10. Provide a foundation for business actions based on predicted return risk.
+5. Dataset Description
+The project uses an e-commerce sales dataset containing approximately 138,116 order records.
+The original dataset contains customer, order, payment, shipping, marketing, financial, and return-related information.
+Examples of available fields include:
+* Customer information
+* Order date and time
+* Sales channel
+* Payment method
+* Shipping method
+* Warehouse
+* Marketing channel
+* Campaign
+* Order quantity
+* Sales amount
+* Product cost
+* Delivery information
+* Return information
+The target variable for the machine learning problem is derived from the order status.
+6. Target Variable
+A binary target variable named return_target was created.
+The definition is:
+Sales['return_target'] = ( Sales['order_status'] == 'Returned').astype(int)
+Target interpretation
+Value
+	Meaning
+	0
+	Order was not returned
+	1
+	Order was returned
+	The dataset contains:
+* 128,654 non-returned orders
+* 9,462 returned orders
+Therefore, approximately 6.85% of orders were returned.
+This makes the problem an imbalanced binary classification problem.
+7. Machine Learning Problem Type
+This project is a:
+Supervised Learning → Binary Classification
+Why?
+The historical dataset contains a known outcome (return_target), and the model learns patterns from historical examples to predict the outcome for new orders.
+There are two possible outcomes:
+0 → Not Returned
+1 → Returned
+8. Data Analysis and Business Analysis
+Before machine learning, the data was analyzed to understand:
+* Order behavior
+* Customer behavior
+* Sales characteristics
+* Return patterns
+* Payment patterns
+* Shipping behavior
+* Marketing behavior
+* Product/order value characteristics
+Business analysis was performed to identify patterns that could potentially contribute to return behavior.
+The analysis phase helps establish business understanding before model development.
+9. Data Leakage Investigation
+Data leakage was treated as a critical part of the project.
+Definition
+Data leakage occurs when information that would not be available at prediction time is used to train a predictive model.
+For this project, the prediction point is:
+Immediately after an order is placed.
+Therefore, information generated later in the order lifecycle should not be used.
+Features identified as leakage or unsuitable
+The following features were removed:
+order_status
+return_status
+return_reason
+payment_status
+delivery_days
+delivery_status
+customer_rating
+review_sentiment
+customer_review
+customer_order_count
+is_repeat_customer
+customer_type
+loyalty_points_earned
+loyalty_points_redeemed
+discount_amount
+customer_lifetime_value
+profit
+profit_margin_percentage
+Identifier fields were also removed:
+order_id
+customer_id
+customer_name
+Raw date/time fields were replaced with derived features:
+order_date
+order_time
+
+
+10. Important Leakage Findings
+Several features were explicitly investigated rather than removed without evidence.
+1.Customer Order Count
+customer_order_count was found to represent the customer's total order history rather than the number of orders completed before the current order.
+For example, the same total count appeared across multiple historical orders for the same customer.
+Therefore:
+Decision: Remove
+2.Is Repeat Customer
+is_repeat_customer was True even on the first recorded order of some customers.
+This indicates that it was likely based on complete customer history.
+Therefore:
+Decision: Remove
+3.Customer Type
+The first order of many customers was already classified as Loyal or Returning.
+This is inconsistent with an order-time definition of customer type.
+Therefore:
+Decision: Remove
+4.Payment Status
+The return relationship showed that returned orders had:
+payment_status = Refunded
+This occurs after the return process and directly reveals the outcome.
+Therefore:
+Decision: Remove
+5.Loyalty Features
+Returned orders had:
+loyalty_points_earned = 0
+loyalty_points_redeemed = 0
+The perfect separation from the target indicated that these fields were not safe for prediction.
+Therefore:
+Decision: Remove
+6.Discount Amount
+Returned orders had:
+discount_amount = 0
+while non-returned orders contained actual discount values.
+Because of this suspicious separation, the feature was excluded from the predictive model.
+11. Feature Engineering
+Useful information was extracted from the order date and order time.
+The following features were created:
+order_year
+order_month
+order_quarter
+order_day
+order_weekday
+order_hour
+order_time_period
+Time period definition
+Orders were grouped into:
+* Night
+* Morning
+* Afternoon
+* Evening
+These features allow the model to capture temporal purchasing patterns.
+12. Final Feature Set
+After feature selection and leakage investigation, 28 features were selected.
+Categorical Features
+sales_channel
+gender
+customer_segment
+customer_country
+customer_state
+region
+payment_method
+currency
+shipping_method
+warehouse
+marketing_channel
+campaign_name
+coupon_code
+order_time_period
+Numerical Features
+customer_age
+estimated_delivery_days
+quantity
+gross_sales
+tax_amount
+shipping_cost
+net_sales
+product_cost
+order_year
+order_month
+order_quarter
+order_day
+order_weekday
+order_hour
+Total:
+14 categorical + 14 numerical = 28 features
+13. Train-Test Split
+The dataset was divided into:
+* 80% training data
+* 20% testing data
+The split was performed using stratification so that the returned/non-returned distribution remained approximately the same in both datasets.
+Result
+Training:
+110,492 records
+Testing:
+27,624 records
+The class distribution remained approximately:
+Not Returned ≈ 93.15%
+Returned ≈ 6.85%
+
+
+14. Data Preprocessing
+The preprocessing process included:
+Numerical features
+Missing numerical values were handled using median imputation.
+Categorical features
+Missing categorical values were replaced with:
+Missing
+Categorical Encoding
+Categorical variables were transformed using:
+One-Hot Encoding
+with:
+handle_unknown='ignore'
+This ensures that unseen categories in the test data do not cause errors.
+Numerical Scaling
+For the Logistic Regression baseline, numerical variables were standardized using:
+StandardScaler
+15. Processed Dataset
+After preprocessing:
+Training data:
+110,492 × 185
+
+
+Testing data:
+27,624 × 185
+The number of features increased from 28 to 185 because categorical variables were converted into multiple one-hot encoded columns.
+Validation checks confirmed:
+Missing values = 0
+Infinite values = 0
+in both processed training and testing datasets.
+16. Baseline Model – Logistic Regression
+Logistic Regression was used as a baseline model.
+Purpose
+The baseline provides a simple reference point against which the more advanced XGBoost model can be compared.
+Because the target variable is imbalanced, class weighting was used:
+class_weight='balanced'
+The Logistic Regression model was trained on the preprocessed dataset.
+17. Main Model – XGBoost
+What is XGBoost?
+XGBoost stands for:
+Extreme Gradient Boosting
+It is a supervised machine learning algorithm based on gradient-boosted decision trees.
+It is especially effective for structured/tabular prediction problems.
+Why XGBoost was selected
+XGBoost was selected because:
+* The project is based on structured tabular data.
+* The target is a binary classification problem.
+* The relationships between customer, order, shipping, payment, and financial variables may be nonlinear.
+* The features can interact with each other.
+* XGBoost is capable of learning complex decision boundaries.
+* It is well suited for predictive modeling on structured datasets.
+For this project, XGBoost is used to estimate the probability that an order will be returned.
+18. Class Imbalance Handling
+The dataset contains significantly more non-returned orders than returned orders.
+Approximate distribution:
+Not Returned → 93.15%
+Returned     →  6.85%
+To give greater importance to the minority class, XGBoost was configured with:
+scale_pos_weight = 102922 / 7570
+This increases the penalty associated with incorrectly classifying returned orders
+19. XGBoost Configuration
+The initial XGBoost model was configured with:
+XGBClassifier(
+    n_estimators=300,
+    learning_rate=0.05,
+    max_depth=6,
+    min_child_weight=1,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    scale_pos_weight=102922 / 7570,
+    objective='binary:logistic',
+    eval_metric='logloss',
+    random_state=42,
+    n_jobs=-1
+)
+Meaning of important parameters
+n_estimators = 300
+Number of boosting trees.
+learning_rate = 0.05
+Controls the contribution of each tree.
+max_depth = 6
+Controls the maximum depth of each tree.
+subsample = 0.8
+Uses 80% of the training observations for each boosting step.
+colsample_bytree = 0.8
+Uses 80% of features for each tree.
+scale_pos_weight
+Handles class imbalance by giving greater importance to the minority class.
+20. Model Prediction
+The XGBoost model generates:
+Class prediction
+0 → Not Returned
+1 → Returned
+Probability prediction
+The model also generates a probability between 0 and 1 representing the estimated probability of return.
+For example:
+0.08 → Low return probability
+0.62 → Moderate/high return probability
+0.91 → High return probability
+This probability can later support business risk scoring.
+21. Model Evaluation
+Because the target is imbalanced, the model should not be evaluated using accuracy alone.
+The main evaluation metrics are:
+Accuracy
+Measures the proportion of all predictions that are correct.
+Precision
+Measures how many predicted returns were actually returned.
+Recall
+Measures how many actual returned orders were correctly identified.
+F1-score
+Balances precision and recall.
+ROC-AUC
+Measures the model's ability to distinguish between returned and non-returned orders across classification thresholds.
+Confusion Matrix
+Contains:
+True Negative
+False Positive
+False Negative
+True Positive
+Final XGBoost evaluation results should be inserted here after the final model evaluation is completed.
+22. Business Interpretation
+The purpose of the prediction model is not simply to maximize accuracy.
+The model can potentially help an e-commerce business:
+* Identify high-risk orders.
+* Prioritize preventive customer communication.
+* Improve shipping and fulfillment strategies.
+* Investigate patterns associated with returns.
+* Reduce avoidable reverse-logistics costs.
+* Improve inventory planning.
+* Support return-risk monitoring.
+The predicted probability can also be converted into risk categories.
+For example:
+0.00 – 0.30 → Low Risk
+0.30 – 0.60 → Medium Risk
+0.60 – 1.00 → High Risk
+The final thresholds should be selected based on business requirements and validation results rather than assumed in advance.
+
+
+1. Project Title
+E-Commerce Sales Prediction Using XGBoost
+2. Objective
+The objective of this analysis is to develop a machine learning model that can forecast monthly e-commerce sales using historical sales patterns and time-based features.
+The analysis uses historical monthly sales data and applies XGBoost Regression to predict sales for the unseen testing period.
+The model is evaluated using:
+* Mean Absolute Error (MAE)
+* Root Mean Squared Error (RMSE)
+* Mean Absolute Percentage Error (MAPE)
+3. Dataset Overview
+The analysis is performed using the project's e-commerce sales dataset.
+The original sales data contains transaction-level information such as:
+* Order ID
+* Order Date
+* Order Status
+* Sales Channel
+* Customer Information
+* Payment Information
+* Marketing Information
+* Quantity
+* Gross Sales
+* Discount Amount
+* Tax Amount
+* Shipping Cost
+* Net Sales
+* Product Cost
+* Profit
+* Profit Margin
+For sales forecasting, the main target variable used is:
+net_sales
+The transaction-level sales data is aggregated into monthly total sales.
+4. Sales Aggregation
+Purpose
+The transaction-level sales data is converted into monthly sales so that the forecasting model predicts monthly sales instead of individual transactions.
+The monthly sales value is calculated by summing net_sales for each month.
+Formula
+Monthly Total Sales = Sum of Net Sales for the Month
+The resulting dataset contains:
+* month
+* total_sales
+The dataset contains 60 monthly records, covering:
+January 2021 – December 2025
+Example
+Month
+	Total Sales
+	Jan 2021
+	2,374,415.22
+	Feb 2021
+	1,905,413.15
+	Mar 2021
+	2,753,256.18
+	...
+	...
+	Nov 2025
+	4,270,161.00
+	Dec 2025
+	4,555,033.50
+	
+
+5. Feature Engineering
+To allow XGBoost to learn historical sales patterns, several time-series features were created.
+1 Time-Based Features
+Year
+The year is extracted from the month.
+Example:
+2021
+2022
+2023
+2024
+2025
+Month Number
+The numerical month is extracted:
+1 = January
+2 = February
+...
+12 = December
+Quarter
+Each month is assigned to its corresponding quarter:
+Q1 → January–March
+Q2 → April–June
+Q3 → July–September
+Q4 → October–December
+6. Lag Features
+Lag features represent previous months' sales.
+The following lag variables were created:
+Feature
+	Meaning
+	lag_1
+	Previous month's sales
+	lag_2
+	Sales two months earlier
+	lag_3
+	Sales three months earlier
+	lag_6
+	Sales six months earlier
+	lag_12
+	Sales twelve months earlier
+	For example:
+lag_1 = previous month's total_sales
+These features help the model understand historical sales trends and seasonality.
+7. Rolling Mean Features
+Two rolling averages were created:
+rolling_mean_3
+Three-month historical average.
+rolling_mean_6
+Six-month historical average.
+Importantly, the rolling calculation uses:
+total_sales.shift(1)
+before calculating the rolling mean.
+This prevents the current month's sales from being included in its own prediction and helps avoid target leakage.
+8. Final XGBoost Features
+The final feature set contains 10 features:
+year
+month_number
+quarter
+lag_1
+lag_2
+lag_3
+lag_6
+lag_12
+rolling_mean_3
+rolling_mean_6
+These are also the features used in the reference XGBoost implementation. Sales_prediction
+9. Train-Test Split
+Since this is a time-series forecasting problem, the data was split chronologically rather than randomly.
+Training Period
+January 2022 – December 2024
+* 36 months
+* Used for model training
+Testing Period
+January 2025 – December 2025
+* 12 months
+* Used for model evaluation
+Dataset Split
+Dataset
+	Period
+	Records
+	Training
+	Jan 2022 – Dec 2024
+	36
+	Testing
+	Jan 2025 – Dec 2025
+	12
+	This approach ensures that the model is trained using historical information and evaluated on a future/unseen period.
+10. XGBoost Regression Model
+Model Used
+XGBoost Regressor
+XGBoost is a gradient-boosting machine learning algorithm that builds multiple decision trees sequentially. Each subsequent tree attempts to improve the errors made by the previous trees.
+It is suitable for this analysis because it can capture:
+* Non-linear relationships
+* Historical sales patterns
+* Seasonal patterns
+* Interactions between time-based features
+* Relationships between lag and rolling features
+11. Model Parameters
+The following XGBoost configuration was used:
+Parameter
+	Value
+	n_estimators
+	300
+	learning_rate
+	0.05
+	max_depth
+	3
+	min_child_weight
+	1
+	subsample
+	0.8
+	colsample_bytree
+	0.8
+	objective
+	reg:squarederror
+	random_state
+	42
+	n_jobs
+	-1
+	This configuration matches the reference implementation. Sales_prediction
+12. Model Prediction
+After training, the model was used to predict monthly sales for all 12 months of 2025.
+The actual and predicted sales were compared.
+Month
+	Actual Sales
+	Predicted Sales
+	Jan 2025
+	2,442,719.60
+	2,532,984.75
+	Feb 2025
+	2,018,064.34
+	2,348,233.25
+	Mar 2025
+	2,790,317.39
+	2,694,722.75
+	Apr 2025
+	2,536,513.26
+	2,564,495.75
+	May 2025
+	2,416,435.27
+	2,581,475.00
+	Jun 2025
+	2,621,595.83
+	2,636,878.75
+	Jul 2025
+	2,844,927.97
+	2,797,723.50
+	Aug 2025
+	2,958,759.35
+	2,744,674.50
+	Sep 2025
+	2,840,833.95
+	2,781,387.50
+	Oct 2025
+	2,793,772.97
+	2,844,822.50
+	Nov 2025
+	4,270,161.00
+	4,357,808.00
+	Dec 2025
+	4,555,033.50
+	4,526,443.00
+	Evaluation
+Three evaluation metrics were used.
+1. MAE – Mean Absolute Error
+MAE measures the average absolute difference between actual and predicted sales.
+Result:
+101,029.72
+This means the model's average absolute monthly prediction error was approximately 101K sales units.
+2. RMSE – Root Mean Squared Error
+RMSE gives greater importance to larger prediction errors.
+Result:
+134,552.43
+3. MAPE – Mean Absolute Percentage Error
+MAPE represents the average prediction error as a percentage of actual sales.
+Result:
+3.96%
+The reference notebook reports the same XGBoost results: MAE 101,029.72, RMSE 134,552.43, and MAPE 3.96%. Sales_prediction
+Final XGBoost Results
+Metric
+	Result
+	MAE
+	101,029.72
+	RMSE
+	134,552.43
+	MAPE
+	3.96%
+	
+
+POWER BI DATA MODELLING : 
+1. Model Overview : 
+Data modelling in Power BI is the process of connecting related tables using common columns so that data can be analysed accurately across sales, customers, products and dates.
+In this e-commerce project, we created a data model that supports business reporting dashboards and keeps machine-learning prediction outputs separate from the main business model.
+The model combines core e-commerce reporting tables with separate machine-learning output tables. Core tables support sales, customer, product, and date analysis. The ML output tables are intentionally disconnected from the core reporting model so their results can be analysed on dedicated pages without introducing unintended filter paths.
+2. Tables and Their Roles
+Table
+	Role
+	Main use
+	Date table
+	Date dimension
+	Provides order_date, year, quarter, month and day attributes for time-based filtering and trend analysis.
+	customer_master
+	Customer dimension
+	Provides customer attributes such as customer_id, age, city, country and acquisition information.
+	products
+	Product dimension
+	Provides product attributes such as product_id, brand, product_category and product_cost.
+	Salesdata
+	Order-level sales table (as designed)
+	Contains customer/order-level sales information and supports sales KPIs and date analysis. Confirm its grain and measures before aggregation.
+	orders
+	Order-item/detail table (as designed)
+	Contains transaction-level fields such as customer_id, discounts, gross_sales and net_sales; useful for order-detail and product analysis.
+	return_predictions
+	Disconnected ML output
+	Contains order_id, actual_order_status, actual_return, predicted_return and return_probability for evaluating order-return predictions.
+	sales_forecast_predictions
+	Disconnected ML output
+	Contains month, total_sales, predicted_sales and difference for comparing actual and predicted monthly sales.
+	customer_segmentation_details
+	Disconnected ML output
+	Contains customer_id, cluster and customer metrics such as order totals, average order value, profit margin and return rate.
+	Measures table (shown as Table in the supplied screenshot)
+	Measure container
+	Holds reusable DAX measures such as Average_order_value and Profit_margin. Rename to _Measures if that is the final convention; hide or remove an unused Column1 field.
+	 
+3. Relationships Visible in the Model
+From (one side)
+	To (many side)
+	Cardinality
+	Purpose
+	Date table
+	Salesdata
+	One-to-many (1:*)
+	Date filters sales records by order date.
+	customer_master
+	Salesdata
+	One-to-many (1:*)
+	Customer filters related sales records.
+	customer_master
+	orders
+	One-to-many (1:*)
+	Customer filters related transaction/detail rows.
+	products
+	orders
+	One-to-many (1:*)
+	Product filters related order-detail rows.
+	Salesdata
+	orders
+	Appears one-to-many (1:*)
+	Connects order-level sales records to order-detail rows; validate this relationship and its filter behaviour before final approval.
+	4. Machine-Learning Output Tables
+4.1 Customer Segmentation
+The customer_segmentation_details table stores customer-level segmentation results. The cluster column identifies the assigned segment, while other columns describe customer behaviour and value. Keep it disconnected as instructed by the project lead. It can support cluster counts, segment profiles and comparisons.
+4.2 Order Return Prediction
+The return_predictions table stores the actual outcome and model prediction for each tested order. actual_return and predicted_return are binary indicators (1 = returned; 0 = not returned under the model target definition). return_probability is the model-estimated probability of the return class. actual_order_status preserves the original status for context. Keep the table disconnected unless an approved integration is required.
+4.3 Sales Forecasting
+The sales_forecast_predictions table contains 12 monthly rows for January–December 2025, with total_sales, predicted_sales and difference. It supports actual-versus-predicted monthly sales charts and error analysis for the test period. It does not itself contain forecasts beyond December 2025. The reported model metrics (MAE 101,029.72, RMSE 134,552.43, MAPE 3.96%) should be validated against the prediction output before being shown as final dashboard KPIs.
+5. DAX Measures
+A dedicated _Measures table is used to organise calculations, including:
+* Total Sales
+* Total Profit
+* Total Orders
+* Total Customers
+* Average Order Value
+* Profit Margin
+* Total Quantity
+These measures are used in the Executive Overview and can be reused on other dashboard pages.
+Important: Measures must use the appropriate source table and aggregation. Because Salesdata contains order-level information and orders contain multiple transaction-detail rows per order, summing repeated order-level values can lead to double-counting.
+6. Benefits of the Data Model
+* Connects business tables for consistent analysis.
+* Enables time-based sales analysis using the Date table.
+* Supports customer and product-level reporting.
+* Centralises DAX calculations for reuse across dashboards.
+* Keeps machine-learning outputs separate from the core reporting model.
+* Provides a foundation for the ten planned dashboard pages.
+
+
+E-Commerce Business Performance Dashboard
+1. Purpose : 
+The Executive Overview provides a high-level summary of overall business performance. It is intended to help stakeholders quickly review headline sales and business KPIs, then identify areas that may need deeper investigation on the detailed report pages.
+It helps management understand:
+* How much revenue the business generates.
+* How much profit the business earns.
+* Whether the business is profitable.
+* How many orders and customers it serves.
+* How sales change over time.
+* Which sales channels perform best.
+* Which regions contribute the most sales.
+2. KPI Cards: Why Did We Create Them
+
+
+KPI
+	Report value
+	Why we created it
+	Business question answered
+	Total Sales
+	177.13M
+	Measures the overall sales generated by the business.
+	How much sales revenue have we generated?
+	Total Profit
+	76.15M
+	Measures the profit generated after accounting for the costs included in the profit calculation.
+	How much profit have we earned?
+	Profit Margin
+	42.99%
+	Shows profit as a percentage of sales.
+	How much profit do we generate for every ₹100 of sales, assuming the figures are in INR?
+	Total Orders
+	138,116
+	Measures the number of orders processed.
+	How many orders have customers placed?
+	Total Customers
+	Approximately 25K
+	Measures the size of the customer base.
+	How many customers are represented in the report?
+	Average Order Value
+	Approximately 1.28K
+	Measures average sales value per order.
+	How much does a customer spend on an order, on average?
+	
+
+3. Business insights to extract : 
+The exact KPI values and chart rankings for this page were not supplied in the current request, so this document does not invent numeric findings. Use the live report to confirm the following:
+* Identify the top sales channel or customer segment by sales.
+* Identify the top contributor to profit and compare it with the sales leader.
+* Review the time trend for sustained growth, decline, or seasonality.
+* Flag any period or segment where sales rise but profit does not rise proportionately.
+* Record the selected date range and filters when reporting findings.
+4. Business Problems  that Executive Overview Solve
+Your Executive Overview addresses six important business questions.
+No.
+	Business problem
+	How the report helps
+	1
+	Management cannot quickly assess overall performance.
+	KPI cards summarise sales, profit, margin, orders, and customers.
+	2
+	Management does not know how sales change over time.
+	The Monthly Sales Trend reveals changes and patterns.
+	3
+	Management cannot easily identify changes in order volume.
+	The Monthly Order Trend shows how transaction volume changes.
+	4
+	Management does not know which channels drive revenue.
+	Sales by Channel compares channel contributions.
+	5
+	Management does not know which regions drive revenue.
+	Sales by Region compares geographic performance.
+	6
+	Sales figures alone do not explain business performance.
+	Comparing sales, profit, orders, and order value provides additional context.
+	
+
+5.Summary :
+The Executive Overview is the starting point for understanding business performance. Its value is to surface headline results and direct attention to the channels, customer groups, or time periods that deserve deeper analysis.
+Overall business recommendations :
+1. Protect profitability: Track profit margin by region, category and channel.
+2. Improve regional performance: Investigate the factors behind South's lead and opportunities in North.
+3. Strengthen digital channels: Understand why Mobile App and Website generate the largest sales.
+4. Manage returns and cancellations: Analyse reasons and identify preventable losses.
+5. Improve trend analysis: Validate monthly sorting and use chronological trends to support forecasting and planning.
+
+
+Sales and Profitability Analysis : 
+four KPI cards with visuals comparing sales and profit by sales channel, monthly sales and profit trends, profit by region, sales by product category, and profit contribution by payment method. The page also includes Year, Region, and Marketing Channel slicers for interactive analysis.
+The Sales & Profitability page provides a focused view of financial performance. It combines 
+1. KPI Cards
+KPI Card
+	Value shown
+	Purpose / question answered
+	Total Sales
+	177.13M
+	Shows overall sales revenue. How much sales revenue has the business generated?
+	Total Profit
+	76.15M
+	Shows total profit. How much profit has the business generated?
+	Profit Margin
+	42.99%
+	Shows profit relative to sales. What percentage of sales is profit?
+	Total Orders
+	138,116
+	Shows order volume. How many orders have been recorded?
+	
+
+The Total Sales card also shows +2.64% from last month, and the Total Profit card shows +2.05% from last month. These indicators suggest that both sales and profit increased compared with the previous month for the displayed filter context.
+2.  Sales vs. Profit by Sales Channel — Clustered Column Chart:
+
+
+Purpose: Compares Total Sales and Total Profit for Website, Social Media, Mobile App, and Marketplace.
+Business question answered: Which sales channels generate the most sales and profit? Does the highest-sales channel also have the highest profit?
+Insight from the screenshot: Mobile App shows the highest displayed sales (about 71M) and profit (about 30M), followed by Website (about 62M sales and 27M profit). Marketplace shows about 27M sales and 11M profit; Social Media shows about 18M sales and 8M profit.
+Business interpretation: The Mobile App and Website are the strongest channels in the displayed view. Compare profit as well as sales when evaluating channel performance.
+
+
+3. Monthly Sales & Profit Trend — Line Chart :
+
+
+Purpose: Tracks Total Sales and Total Profit month by month from January to December.
+Business question answered: How do sales and profit change during the year? Which months show the highest and lowest values?
+Insight from the screenshot: Displayed sales are lowest in February at about 10.1M and highest in December at about 23.3M. Displayed profit is lowest in February at about 4.8M and highest in December at about 7.7M. Both measures rise notably toward November and December.
+Business interpretation: The report shows a year-end increase in both sales and profit. Investigate whether this pattern is linked to seasonal demand, promotions, or other business factors before drawing a cause-and-effect conclusion.
+
+
+4. Total Profit by Region — Horizontal Bar Chart : 
+
+
+Purpose: Compares total profit across South, West, Central, East, and North.
+Business question answered: Which regions generate the most and least profit?
+Insight from the screenshot: South is highest at about 23.3M. West and Central are each about 15.6M. East is about 11.2M, and North is lowest at about 10.4M.
+Business interpretation: South is the strongest region by displayed profit. North and East may warrant further investigation into sales volume, product mix, discounts, and costs.
+
+
+5. Total Sales by Product Category — Horizontal Bar Chart :
+
+
+Purpose: Ranks product categories by total sales.
+Business question answered: Which product categories contribute most to sales?
+Insight from the screenshot: The highest displayed categories are Electronics (about 59M), Home Appliances (46M), Jewelry (44M), Sports & Outdoors (43M), and Automotive (41M). Lower displayed values include Beauty & Personal Care (32M), Books & Media (32M), Toys & Games (31M), and Pet Supplies (31M).
+Business interpretation: Electronics leads the visible category ranking. These are sales values, not profit values, so the chart alone does not identify the most profitable categories.
+
+
+6. Profit Contribution by Payment Method — Donut Chart : 
+
+
+Purpose: Shows how total profit of 76.15M is distributed among payment methods.
+Business question answered: Which payment methods contribute the largest and smallest amounts of profit?
+Insight from the screenshot: Credit Card is the largest visible contribution at about 22.94M, followed by Debit Card at 15.18M and PayPal at 11.43M. Other visible contributions include about 8.98M, 7.76M, 6.01M, and 3.84M across the remaining payment methods shown in the legend.
+Business interpretation: Credit Cards have the largest displayed profit contribution. The chart supports a comparison of profit amounts by payment method, but does not by itself explain why the amounts differ.
+7. Filters / Slicers
+Year: allows the user to filter the dashboard by year (2021–2025 are visible).
+Region: allows comparison within selected regions.
+Marketing Channel: allows analysis for selected marketing channels such as Affiliate, Direct, Email  Marketing, Facebook Ads, and Google Ads.
+These slicers make the visuals interactive. KPI values and charts may change when a different year, region, or marketing channel is selected.
+8. Key Insights Generated by the Report :
+* The report displays 177.13M in total sales and 76.15M in total profit, with a 42.99% profit margin.
+* Total sales and total profit show positive month-over-month indicators of +2.64% and +2.05%, respectively.
+* Mobile App is the leading visible sales channel, followed by Website.
+* Sales and profit reach their highest displayed monthly values in December and their lowest in February.
+* South contributes the highest displayed regional profit, while North contributes the lowest.
+* Electronics is the highest-selling visible product category.
+* Credit Cards+ contributes the largest visible share of profit by payment method.
+* Year, Region, and Marketing Channel filters allow users to investigate these patterns for selected business contexts.
+9. Business Recommendations : 
+* Review the Mobile App and Website practices that may be contributing to their stronger displayed sales and profit, and test whether similar approaches work in other channels.
+* Investigate the November–December increase and February dip, while validating the pattern across multiple years before labeling it seasonal.
+* Review North and East region performance to understand whether sales, product mix, pricing, discounts, or costs explain lower profit.
+* Use the category sales ranking to guide inventory and merchandising analysis, but compare category-level profit before making profitability decisions.
+* Monitor profit by payment method alongside transaction counts and any applicable payment-processing costs; profit contribution alone does not establish payment-method profitability.
+* Use the slicers to compare results across years, regions, and marketing channels rather than relying only on the unfiltered view.
+
+
+Customer Analytics 
+1. Report Overview : 
+The Customer Analytics & Insights report analyses customer value, customer segmentation, purchase behaviour, and spending levels. It provides an interactive view of how customers are distributed across segments and how much revenue each segment contributes.
+2. Business Problem :
+A business may have a large customer base but lack a clear view of which customer groups contribute the most revenue, which customers may be at risk of becoming inactive, and how customer spending differs. Without segmentation, it can be difficult to target retention, loyalty, and re-engagement activities appropriately.
+3. Report Objectives :
+* Summarize customer-related performance using KPI cards.
+* Compare customer counts across customer segments.
+* Compare revenue generated by customer segments.
+* Explore customer purchase behaviour through the scatter chart.
+* Understand the distribution of customers by spending level.
+* Allow analysis by Customer Segment, Region, and Gender using slicers.
+4. KPI Cards : 
+
+
+KPI
+	Value shown
+	Purpose / interpretation
+	Total Sales
+	₹177.13M
+	Shows the total sales value displayed in the customer report.
+	Average Customer Spending
+	₹7.11K
+	Shows the average customer spending measure used in the report.
+	Champions Count
+	3,456
+	Shows the number of customers assigned to the Champions segment.
+	At-Risk Customers
+	2,689
+	Shows the number of customers assigned to the At-Risk Customers segment.
+	5. Visual-by-Visual Documentation 
+1.Customer Distribution by Segment :
+Visual type: Horizontal bar chart
+What it shows: Displays the number of customers in each customer segment.
+Category / segment
+	Displayed value
+	Lost Customers
+	4,716
+	Champions
+	3,456
+	Potential Loyalists
+	3,294
+	Recent Customers
+	3,280
+	Other Customers
+	3,080
+	At-Risk Customers
+	2,689
+	Loyal Customers
+	2,290
+	Cannot Lose Them
+	2,106
+	
+
+Key insight: 
+Lost Customers is the largest displayed segment, with 4,716 customers. Champions and Potential Loyalists are also sizable groups.
+Business question answered: Which customer segments have the most customers?
+Potential business use: Investigate re-engagement approaches for Lost Customers and distinct engagement strategies for active, promising, and at-risk segments.
+2. Revenue by Customer Segment :
+
+
+Visual type: Horizontal bar chart
+What it shows: Compares sales revenue contributed by each customer segment.
+Category / segment
+	Displayed value
+	Champions
+	₹42M
+	At-Risk Customers
+	₹27M
+	Potential Loyalists
+	₹24M
+	Loyal Customers
+	₹22M
+	Other Customers
+	₹21M
+	Cannot Lose Them
+	₹16M
+	Lost Customers
+	₹14M
+	Recent Customers
+	₹11M
+	
+
+Key insight:
+ Champions contribute the highest displayed revenue at approximately ₹42M. At-Risk Customers contribute approximately ₹27M.
+Business question answered: Which customer segments contribute the most revenue?
+Potential business use: Protect relationships with high-contributing segments and investigate appropriate ways to retain customers in at-risk segments.
+3. Customer Purchase Behaviour : 
+
+
+Visual type: Scatter chart
+What it shows: Shows points differentiated by customer segment. The screenshot does not make the axis titles or field assignments sufficiently clear to state exact axis meanings confidently.
+Key insight: The chart supports comparison of purchase behaviour across segments. Confirm the axis labels and field assignments in Power BI before drawing conclusions about recency, frequency, or monetary value.
+Business question answered: How does customer purchase behaviour vary across the displayed segments?
+Potential business use: Use the chart to explore differences between groups after confirming which measure is assigned to each axis.
+4. Customer Distribution by Spending Level :
+
+
+Visual type: Column chart
+What it shows: Compares the number of customers classified into Medium, Low, and High spending groups.
+
+
+Category / segment
+	Displayed value
+	Medium Spending
+	10.8K
+	Low Spending
+	8.6K
+	High Spending
+	5.4K
+	
+
+Key insight: 
+Medium-Spending customers form the largest displayed group at approximately 10.8K, followed by Low-Spending customers at 8.6K and High-Spending customers at 5.4K.
+Business question answered: How are customers distributed across spending levels?
+Potential business use: Tailor engagement to each spending group. Document and validate the rules used to define the spending categories.
+6. Interactive Slicers :
+The report contains three slicers: Customer Segment, Region, and Gender. They allow users to filter the report and compare customer counts, revenue, and spending-level distributions for selected groups.
+7. Key Insights Summary :
+* The report displays Total Sales of ₹177.13M and Average Customer Spending of ₹7.11K.
+* There are 3,456 Champions and 2,689 At-Risk Customers according to the KPI cards.
+* Lost Customers is the largest segment shown, with 4,716 customers.
+* Champions contribute the highest displayed segment revenue at approximately ₹42M.
+* Medium-Spending customers are the largest spending group at approximately 10.8K.
+* The Customer Purchase Behaviour scatter chart requires its axis definitions to be checked before making more specific claims.
+8. Business Recommendations :
+* Review the Lost Customers segment and test win-back campaigns, measuring whether customers return and purchase again.
+* Consider loyalty initiatives for Champions and track whether they improve repeat purchasing.
+* Monitor At-Risk Customers and test targeted engagement to encourage repeat purchases.
+* Use Region and Gender slicers to investigate differences between customer groups rather than assuming causes from the charts alone.
+* Confirm spending-level thresholds and scatter-chart axis definitions before presenting detailed interpretations.
+9. Business Impact : 
+The Customer Analytics report gives stakeholders a clearer view of customer segment size, segment revenue, and spending-level distribution. It can support more focused customer engagement, retention, and loyalty planning. The report highlights customer groups worth investigating; the effectiveness of campaigns should be measured using subsequent customer activity and revenue results.
+10. Presentation Summary : 
+The Customer Analytics & Insights report focuses on understanding customer value and behaviour. KPI cards summarize sales, average spending, Champions, and At-Risk Customers. Segment distribution and revenue charts show the size and financial contribution of each customer group. The spending-level chart compares customer counts across spending categories, while the purchase behaviour scatter chart supports further exploration of differences between segments. Customer Segment, Region, and Gender slicers make the report interactive and help users investigate specific groups.
+
+
+PRODUCT PERFORMANCE  ANALYSIS
+
+
+1. Report Overview :
+
+
+The Product Performance & Analytics report analyses the e-commerce product portfolio through product sales, revenue, profitability, category and subcategory performance, monthly sales patterns, and return status. It is designed to help management identify strong-performing products and categories and areas that may need attention.
+2. Business Objectives : 
+
+
+* Measure the size and sales performance of the product portfolio.
+* Identify products and categories that contribute the most revenue and profit.
+* Compare revenue contribution with profitability.
+* Monitor product return patterns and monthly revenue movement.
+* Support inventory, pricing, product-mix and customer-experience decisions.
+
+
+3. Main KPIs : 
+
+
+KPI
+	Meaning
+	Dashboard value
+	Total Products
+	Distinct products in the product catalogue.
+	1,175
+	Total Units Sold
+	Sum of product quantities sold.
+	~1M
+	Total Product Revenue
+	Revenue measure used in the report.
+	~192M
+	Average Selling Price
+	Total product revenue divided by total units sold.
+	₹228
+	Total Product Profit
+	Sum of profit recorded in the Orders table.
+	~83M
+	
+
+4. Data Model and Relationships : 
+
+
+The report uses the products, Orders, Salesdata and Date_df tables. The visible model shows products[product_id] related to Orders[product_id] as a one-to-many relationship. Sales data is also connected to Orders through an order-level key, and Date_df filters Salesdata. The Product table does not have a direct relationship to Salesdata.
+5. Main Visuals :
+Visual
+	What it communicates
+	Top 5 Products by Profit – bar chart
+	Ranks the five products with the highest recorded profit.
+	Return Status Distribution – donut chart
+	Shows the share of returned and not-returned records.
+	Top 5 Categories by Profit – column chart
+	Compares profit across the leading product categories.
+	Revenue by Product Category – bar chart
+	Ranks categories by revenue contribution.
+	Revenue by Product Subcategory – treemap
+	Shows relative revenue contribution by subcategory.
+	Monthly Product Sales Trend – line chart
+	Shows monthly revenue movement over the selected period.
+	
+
+
+
+6. Key Business Insights :
+
+
+Area
+	Finding from the dashboard
+	Overall performance
+	The report shows approximately 1,175 products, 1M units sold, 192M revenue and 83M profit.
+	Revenue leaders
+	Electronics leads category revenue at about 41M, followed by Jewelry at 26M and Home Appliances at 25M.
+	Revenue concentration
+	The top three revenue categories contribute about 92M, approximately 48% of the displayed total revenue.
+	Profit leaders
+	Electronics leads category profit at about 14.1M, followed by Jewelry at 10.4M and Home Appliances at 10.3M.
+	Product profit
+	The five products shown generate approximately 0.34M–0.38M profit each.
+	Return status
+	The displayed distribution is approximately 93.15% Not Returned and 6.85% Returned.
+	Monthly sales
+	December and November show the highest displayed monthly revenue values, at about 25.3M and 23.3M.
+	
+
+7. Business Recommendations :
+* Inventory planning:
+ Monitor stock availability for Electronics, Jewelry and Home Appliances because they are the largest revenue contributors.
+* Profitability:
+ Compare category and product profit margins, not only revenue, before deciding where to invest or promote.
+* Product performance:
+ Review the top-profit products for demand, margins, inventory availability and return behaviour.
+* Returns: 
+            Investigate return reasons and the products/categories associated with returns; use the    validated return-status definition.
+* Sales planning:
+ Use a correctly sorted Year-Month trend and compare equivalent periods across years before making seasonal claims.
+8. Key DAX Measures
+Measure
+	DAX / calculation
+	Total Products
+	DISTINCTCOUNT('products'[product_id])
+	Total Units Sold
+	SUM('orders'[quantity])
+	Total Product Profit
+	SUM('orders'[profit])
+	Average Selling Price
+	DIVIDE([Total Product Revenue], [Total Units Sold], 0)
+	Return Rate %
+	DIVIDE([Returned Records], [Returned Records] + [Not Returned Records], 0)
+	.
+9.Summary :
+“This report provides an overview of product performance across revenue, profit, category and subcategory contribution, monthly sales and return status. The dashboard shows that Electronics is the leading category in both revenue and absolute profit, while Jewelry and Home Appliances are also important contributors. The return-status visual provides an overview of recorded returns, and the monthly trend supports sales monitoring. These findings can help management improve inventory planning, review profitability, investigate returns and make informed product portfolio decisions.”
+
+
+MARKETING ANALYTICS DASHBOARD
+1. Project Overview :
+The Marketing Analytics Dashboard is developed using Power BI to analyse the company's marketing performance and understand how different marketing channels and campaigns contribute to overall sales revenue.
+The dashboard provides insights into campaign performance, marketing channel effectiveness, monthly revenue trends, and discount distribution.
+The objective is to help management evaluate marketing performance, identify high-performing channels, and make data-driven marketing decisions.
+2. Business Objectives :
+The primary objectives of this report are:
+* Analyse revenue generated through different marketing channels.
+* Evaluate the performance of marketing campaigns.
+* Compare campaign-associated and non-campaign revenue.
+* Monitor monthly campaign revenue trends.
+* Understand the distribution of discounts across marketing channels.
+* Identify opportunities to improve marketing effectiveness.
+3. Data Preparation and Processing : 
+The project uses the E-commerce Sales dataset.
+Data preparation was performed using Python Pandas and Power BI.
+The major preparation activities included:
+* Inspecting the dataset structure and data types.
+* Identifying and handling missing values.
+* Checking duplicate records.
+* Standardising categorical values.
+* Preparing marketing-related columns for analysis.
+* Creating calculated columns and DAX measures in Power BI.
+4. Key Performance Indicators (KPIs)
+The report  includes the following KPI cards:
+1. Total Marketing Channels :
+Measures the number of unique marketing channels used by the business.
+DAX:
+Total Marketing Channels =
+DISTINCTCOUNT(Salesdata[marketing_channel])
+Business purpose: Helps management understand the diversity of marketing channels used to reach customers.
+2. Campaign Orders :
+Measures the number of distinct orders associated with actual marketing campaigns.
+DAX:
+Campaign Orders =
+CALCULATE(
+    DISTINCTCOUNT(Salesdata[order_id]),
+    Salesdata[campaign_name] <> "no campaign"
+)
+Business purpose: Measures the volume of orders associated with marketing campaigns.
+3. Campaign Revenue :
+Calculates the net sales revenue associated with marketing campaigns.
+DAX:
+Campaign Revenue =
+CALCULATE(SUM(Salesdata[net_sales]),
+    Salesdata[campaign_name] <> "no campaign"
+)
+Business purpose: Evaluates the revenue contribution of campaign-associated orders.
+4. Total Campaigns
+Measures the number of distinct actual marketing campaigns.
+DAX:
+Total Campaigns =
+CALCULATE(
+    DISTINCTCOUNT(Salesdata[campaign_name]),
+    Salesdata[campaign_name] <> "no campaign")
+Business purpose: Provides an overview of the number of distinct campaigns represented in the dataset.
+5. Dashboard Visualizations
+1. Campaign Revenue by Marketing Channel : 
+Chart type: Clustered Bar Chart
+Fields used:
+* Y-axis: marketing_channel
+* X-axis: Campaign Revenue
+Purpose:
+Compares campaign-associated revenue across different marketing channels and identifies the channels contributing the most revenue.
+Business interpretation:
+Organic Search is the leading revenue-generating channel, followed by Google Ads and Direct. These channels represent important sources of campaign-associated revenue.
+2. Campaign Revenue by Month :
+Chart type: Line Chart
+Fields used:
+* X-axis: order_date (Month)
+* Y-axis: Campaign Revenue
+Purpose:
+Analyses monthly changes in campaign-associated revenue and identifies trends and seasonal patterns.
+Business interpretation:
+The dashboard shows a significant increase in campaign revenue during November and December. This may indicate stronger seasonal demand or increased campaign activity during these months.
+3. Revenue Contribution by Campaign Status
+Chart type: Donut Chart
+Fields used:
+* Legend: Campaign Status
+* Values: Total Revenue
+Purpose:
+Compares revenue associated with actual marketing campaigns against revenue from orders without campaign association.
+Business interpretation:
+Campaign-associated orders contribute approximately 39.57% of total sales, while non-campaign orders contribute approximately 60.43%.
+This comparison helps management understand the contribution of campaign-associated sales to overall revenue.
+4. Total Discount by Marketing Channel :
+Chart type: Clustered Column Chart
+Fields used:
+* X-axis: marketing_channel
+* Column Y-axis: Total Discount
+Purpose:
+campaign-associated  discount amounts across different marketing channels.
+Business interpretation:
+Organic Search records the highest campaign-associated revenue and discount amount among the displayed channels. The comparison helps management understand how discounts are distributed across marketing channels.
+It also provides a basis for further investigation into discount effectiveness.
+6. Report Filters and Slicers :
+The dashboard provides interactive filtering capabilities through the following slicers:
+1. Date – Filters marketing performance by order date.
+2. Marketing Channel – Analyses individual marketing channels.
+3. Customer Segment – Analyses performance across different customer groups.
+These slicers allow users to explore specific marketing performance segments without changing the underlying report.
+7. Key Business Insights :
+Based on the dashboard:
+* The business operates across 10 distinct marketing channels.
+* Approximately 55K orders are associated with marketing campaigns.
+* Campaign-associated revenue is approximately ₹70 million.
+* The campaign count KPI displays 3,456.
+* Organic Search generates the highest campaign-associated revenue at approximately ₹14 million.
+* Google Ads and Direct each generate approximately ₹10.5 million.
+* Campaign-associated revenue contributes approximately 39.57% of total sales.
+* November and December show a substantial increase in monthly campaign revenue.
+* Discount amounts vary across marketing channels.
+8. Business Recommendations :
+Based on the observed results, the following recommendations can be considered:
+* Evaluate the performance of Organic Search and Google Ads to understand the factors contributing to their revenue.
+* Investigate the November and December revenue increase to identify seasonal opportunities.
+* Review discount distribution across channels to assess whether promotional spending is effective.
+* Analyse customer segments to identify groups that respond positively to marketing campaigns.
+* Monitor campaign-associated revenue and order trends regularly.
+* Evaluate actual campaign expenditure and incremental revenue before making marketing ROI or ROAS decisions.
+9. Tools and Technologies Used
+Tool
+	Application
+	Python – Pandas
+	Data cleaning and preparation
+	Power BI Desktop
+	Dashboard development and visualization
+	DAX
+	KPI calculations and business measures
+	Power Query
+	Data transformation
+	Excel
+	Data inspection and validation
+	10. Conclusion : 
+The Marketing Analytics Dashboard provides a consolidated view of marketing performance by analysing campaign-associated revenue, marketing channel contribution, monthly trends, and discount distribution.
+It enables management to identify high-performing channels, monitor campaign-associated sales, and explore opportunities to improve marketing strategies.
+The dashboard supports data-driven decision-making by converting raw e-commerce sales data into meaningful business insights.
+
+
+Operations & Delivery Analytics
+1. Introduction :
+The Operations & Delivery Analytics dashboard is designed to evaluate the efficiency of order fulfilment and delivery operations in an e-commerce business.
+The dashboard provides insights into delivery performance, order distribution, shipping methods, regional delivery delays and profitability across different delivery statuses.
+The primary objective is to help management monitor operational performance, identify delivery bottlenecks, control logistics expenses and improve the overall customer delivery experience.
+2. Business Objectives :
+The key objectives of this dashboard are:
+1. Monitor total order volume and delivery performance.
+2. Measure on-time, early and delayed deliveries.
+3. Identify regions experiencing higher delivery delays.
+4. Evaluate the performance of different shipping methods.
+5. Analyze monthly delivery trends.
+6. Compare profitability across different delivery statuses.
+7. Monitor average shipping expenses.
+3. Dataset Overview :
+The analysis uses the Salesdata table.
+The important columns used in this dashboard include:
+Column
+	Description
+	order_id
+	Unique order identifier
+	delivery_status
+	Delivery classification
+	delivery_days
+	Actual number of days taken to deliver an order
+	estimated_delivery_days
+	Expected delivery duration
+	shipping_method
+	Shipping method selected
+	shipping_cost
+	Shipping expense
+	region
+	Geographical region
+	profit
+	Profit associated with an order
+	Delivery status categories:
+* On Time
+* Early
+* Delayed
+* Cancelled
+4. Key Performance Indicators (KPIs)
+The dashboard contains six operational KPIs.
+1. Total Orders :
+Represents the total number of unique orders recorded in the dataset.
+DAX:
+Total Orders =
+DISTINCTCOUNT(Salesdata[order_id])
+Reported value: 138,116.
+2. On-Time Delivery :
+Represents the number of orders delivered on time or earlier than the estimated delivery date, based on the dashboard's classification.
+DAX:
+On-Time Delivery =
+CALCULATE(DISTINCTCOUNT(Salesdata[order_id]),
+    Salesdata[delivery_status] IN {"OnTime", "Early"})
+Reported value: Approximately 87K (verify the displayed card against the final measure).
+3. Delayed Delivery :
+Represents the number of orders delivered after their estimated delivery duration.
+DAX:
+Delayed Delivery =
+CALCULATE(
+    DISTINCTCOUNT(Salesdata[order_id]),
+    Salesdata[delivery_status] = "Delayed"
+)
+Reported value: Approximately 17K.
+4. On-Time Delivery Rate :
+Measures the proportion of eligible delivered orders that meet the on-time delivery definition.
+The numerator and denominator must follow the same business definition. Early deliveries should only be included in the numerator if the KPI is intended to represent deliveries made on or before the estimated date.
+5. Average Shipping Cost :
+Represents the average shipping expense incurred per order.
+DAX:
+Average Shipping Cost =
+AVERAGE(Salesdata[shipping_cost])
+Reported value: Approximately ₹22.
+6. Early Delivery Rate :
+Measures the percentage of delivered orders that reached customers earlier than the estimated delivery duration.
+DAX:
+Early Delivery Orders =
+CALCULATE(
+    DISTINCTCOUNT(Salesdata[order_id]),
+    Salesdata[delivery_status] = "Early"
+)
+
+Early Delivery Rate =
+DIVIDE(
+    [Early Delivery Orders],
+    CALCULATE(
+        DISTINCTCOUNT(Salesdata[order_id]),
+        Salesdata[delivery_status]
+            IN {"Early", "OnTime", "Delayed"}
+    ),
+    0
+)
+Reported value: 36.62%.
+5. Visualizations and Their Business Purpose : 
+1. Delivery Status Distribution :
+Chart Type: Donut Chart
+Fields:
+* Legend: delivery_status
+* Values: Distinct Count of order_id
+Purpose:
+Displays the distribution of orders across Early, On Time, Delayed and Cancelled categories.
+Business Value:
+Helps management understand overall delivery performance and identify the proportion of delayed and cancelled orders.
+Key Observation:
+On-time deliveries account for approximately 62.93% of total orders, while delayed deliveries represent approximately 12.23%.
+2. Realized Profit by Delivery Status :
+Chart Type: Clustered Column Chart
+Fields:
+* X-axis: delivery_status
+* Y-axis: Realized Profit
+DAX Measure:
+Realized Profit =
+CALCULATE(
+    SUM(Salesdata[profit]),
+    KEEPFILTERS(
+        Salesdata[delivery_status] <> "Cancelled"
+    )
+)
+Purpose:
+Compares profitability across different delivery statuses while excluding cancelled orders.
+Business Value:
+Helps management understand how profitability is distributed across successfully delivered orders.
+Key Observation:
+On-time deliveries contribute the highest realized profit, followed by delayed and early deliveries.
+Reported values:
+* On Time: ₹4,56,87,906.29
+* Delayed: ₹88,76,468.15
+* Early: ₹51,94,094.59
+Cancelled orders are excluded from realized profit.
+3. Monthly Delivery Performance : 
+Chart Type: Stacked Bar Chart
+Fields:
+* Y-axis: Month
+* X-axis: Distinct Count of order_id
+* Legend: delivery_status
+Purpose:
+Analyzes the monthly distribution of orders across different delivery statuses.
+Business Value:
+Helps identify monthly delivery patterns, changes in order volume and periods experiencing higher delivery delays.
+4. Shipping Method Performance :
+Chart Type: Horizontal Bar Chart
+Fields:
+* Y-axis: shipping_method
+* X-axis: Distinct Count of order_id
+Purpose:
+Compares order volumes across different shipping methods.
+Business Value:
+Helps management understand shipping method utilization and identify the most frequently used delivery options.
+Key Observation:
+Standard shipping handles the highest order volume, with approximately 62K orders, followed by Express, Economy and Same Day shipping.
+5. Delayed Delivery by Region :
+Chart Type: Pie Chart
+Fields:
+* Legend: region
+* Values: Delayed Orders
+DAX Measure:
+Delayed Orders =
+CALCULATE(
+    DISTINCTCOUNT(Salesdata[order_id]),
+    Salesdata[delivery_status] = "Delayed"
+)
+Purpose:
+Identifies how delayed orders are distributed across geographical regions.
+Business Value:
+Helps management identify regions experiencing more delivery challenges and prioritize logistics improvements.
+Key Observation:
+The South region accounts for the highest proportion of delayed orders at approximately 32%.
+7. Key Business Insights : 
+Based on the dashboard analysis, the following insights were identified:
+1. On-time deliveries represent the largest share of total orders.
+2. Cancelled orders account for approximately 17.78% of total orders and require further investigation.
+3. Delayed deliveries account for approximately 12.23% of total orders.
+4. Standard shipping is the most frequently utilized shipping method.
+5. The South region contributes the highest share of delayed deliveries.
+6. On-time deliveries generate the highest realized profit among the delivered-order categories.
+7. Early deliveries have lower total profit primarily because of their lower order volume, although their average profit per order is higher than the other delivered-order categories.
+8. Recommendations : 
+Based on the findings, the following actions are recommended:
+* Investigate the reasons behind order cancellations.
+* Improve logistics operations in regions with higher delivery delays.
+* Monitor shipping method performance to optimize delivery efficiency.
+* Review delivery timelines and identify opportunities to reduce delays.
+* Track actual delivery duration against estimated delivery duration.
+* Monitor realized profitability across delivery categories.
+* Continuously evaluate operational KPIs to improve delivery reliability.
+9. Conclusion :
+The Operations & Delivery Analytics dashboard provides a comprehensive view of e-commerce delivery and logistics performance.
+By combining operational KPIs with interactive visualizations, the dashboard helps management understand order fulfillment efficiency, identify delivery challenges, analyze regional performance and monitor profitability.
+Overall, the dashboard supports data-driven decision-making and helps identify opportunities to improve logistics operations, reduce delivery delays, optimize shipping costs and enhance customer satisfaction.
+
+
+Returns & Customer Experience Analytics
+1. Page Overview :
+The Returns & Customer Experience Analytics page provides insights into product returns, customer reviews, regional product demand, and order retention.
+The objective of this page is to help the business understand return patterns, identify product categories and customer segments contributing to returns, evaluate customer feedback, and monitor orders that have not been returned.
+2. Business Objectives :
+* Monitor the overall return rate and returned order volume.
+* Identify monthly trends in product returns.
+* Determine which product categories contribute to higher returns.
+* Analyse return behaviour across customer segments.
+* Understand the distribution of product quantities across geographical regions.
+* Monitor customer ratings and review sentiment.
+* Track monthly non-returned orders.  
+3. Key Performance Indicators (KPIs) :
+KPI
+	Value
+	Business Purpose
+	Total Orders
+	138,116
+	Measures the total number of distinct orders.
+	Returned Records
+	9,462
+	Measures the number of returned orders.
+	Return Rate
+	6.85%
+	Measures the percentage of orders that were returned.
+	Average Customer Rating
+	3.68
+	Indicates the average customer rating.
+	Non-Returned Records
+	128,654
+	Measures orders without a recorded return.
+	Important calculations:
+Total Orders :
+Total Orders =
+DISTINCTCOUNT(Salesdata[order_id])
+Returned Orders :
+Returned Orders =
+CALCULATE(
+    DISTINCTCOUNT(Salesdata[order_id]),
+    Salesdata[return_status] = "Returned"
+)
+Non-Returned Orders :
+Non Returned Orders =
+CALCULATE(
+    DISTINCTCOUNT(Salesdata[order_id]),
+    Salesdata[return_status] = "Not Returned"
+)
+Return Rate :
+Return Rate =
+DIVIDE(
+    [Returned Orders],
+    [Total Orders],
+    0
+)
+Format the Return Rate measure as a percentage.
+4. Visual Analysis
+1. Return Status Distribution – Donut Chart : 
+Purpose: Shows the proportion of returned and non-returned orders.
+Business value: Helps management understand the overall return situation and evaluate the proportion of orders that result in returns.
+Key observation: Approximately 6.85% of orders were returned, while 93.15% were not returned.
+2. Monthly Return Trend – Line Chart :
+Purpose: Displays how returned orders change over different months.
+Business value:
+* Identifies months with higher return volumes.
+* Helps detect seasonal return patterns.
+* Supports investigation of unusual increases in returns.
+Key observation: Return volumes fluctuate throughout the year, with a noticeable increase towards November and December.
+3. Returns by Product Category – Bar Chart : 
+Purpose: Compares returned order volumes across product categories.
+Business value:
+* Identifies categories contributing to higher returns.
+* Helps investigate product quality or customer expectation issues.
+* Supports improvements in product descriptions and quality control.
+Key observation: Sports & Outdoors has the highest displayed return count among the five categories shown.
+4. Customer rating by Region – Donut Chart :
+Purpose: Shows how the total customer rating of products sold is distributed across geographical regions.
+Business value:
+* Identifies regions contributing higher product demand.
+* Supports regional inventory planning.
+* Helps management understand geographical demand patterns.
+Key observation: South contributes the largest share of customer rating , while North contributes the smallest share among the five regions.
+5. Returns by Customer Segment – Column Chart : 
+Purpose: Compares returned orders across different customer segments.
+Business value:
+* Identifies customer segments with higher return volumes.
+* Helps businesses understand differences in return behaviour.
+* Supports targeted customer engagement and retention strategies.
+Key observation: The Consumer segment has the highest displayed return volume, followed by Premium, Business, and VIP.
+6. Monthly Non-Returned Orders Trend – Area Chart :
+Purpose: Displays the monthly trend of orders without a recorded return.
+Business value:
+* Tracks non-returned order volumes over time.
+* Helps compare monthly order retention patterns.
+* Provides an overview of orders that did not result in recorded returns.
+Key observation: Non-returned order volumes increase noticeably towards the end of the year.
+5. Important Business Insights :
+Based on the dashboard:
+1. The overall return rate is approximately 6.85%, indicating that most recorded orders were not returned.
+2. Return volumes vary across months, making monthly monitoring important.
+3. Sports & Outdoors has the highest displayed return count among the categories shown.
+4. The Consumer segment contributes the highest displayed return volume.
+5. The South region contributes the largest share of product quantity.
+6. Non-returned orders show an increase towards the end of the year.
+7. The average customer rating is 3.68, providing an overall indication of customer feedback.
+6. Business Recommendations :
+* Investigate the reasons behind returns in high-return product categories.
+* Monitor monthly return trends and identify unusual increases.
+* Review product quality, descriptions, and packaging for categories with higher returns.
+* Analyse customer segments with higher return volumes to identify behavioural patterns.
+* Use regional quantity distribution to improve inventory allocation.
+* Monitor customer ratings and negative review sentiment to identify service improvement opportunities.
+* Develop customer retention strategies based on customer feedback and purchasing behaviour.
+7. Data and Calculation Considerations :
+* Use DISTINCTCOUNT of order_id for order-level KPIs to avoid counting multiple sales rows as separate orders.
+* Ensure returned-order visuals are filtered using return_status = "Returned".
+* Ensure non-returned-order visuals use return_status = "Not Returned".
+* Use SUM(quantity) for the regional quantity distribution.
+* Use the actual customer rating field for the average rating KPI.
+* Review sentiment analysis should use the review_sentiment field and an appropriate review-level or order-level count.
+* Validate the relationship and filter propagation between product, order, and sales tables before interpreting category-level results.
+8. Conclusion :
+The Returns & Customer Experience Analytics page provides a consolidated view of return performance, customer feedback, regional product demand, and order retention.
+By combining KPIs with monthly trends and category, region, and customer-segment comparisons, the dashboard helps management identify potential issues and make data-driven decisions to improve product quality, customer experience, and business performance.
+
+
+Customer Segmentation Analysis 
+1. Project Overview :
+Customer Segmentation is an analytical approach used to divide customers into different groups based on similarities in their purchasing behaviour, transaction patterns, and profitability.
+In an e-commerce business, customers do not behave in the same way. Some customers purchase frequently, some place high-value orders, some contribute higher sales, and others may generate lower profits.
+Understanding these differences helps businesses make better decisions regarding marketing strategies, customer retention, promotional campaigns, and profitability improvement.
+In this project, customer segmentation was performed using the K-Means clustering algorithm. Customers were grouped into five clusters based on selected purchasing and profitability-related features.
+The results were then integrated into Power BI to develop an interactive Customer Segmentation Analysis dashboard.
+2. Business Problem :
+The e-commerce business has a large customer base, but treating every customer equally may not be an effective business strategy.
+Without proper customer segmentation, the business may face difficulties in:
+* Identifying high-value customers.
+* Understanding different customer purchasing behaviours.
+* Recognizing customers who contribute higher sales and profits.
+* Identifying customers with higher order values.
+* Developing targeted marketing and customer retention strategies.
+* Understanding how different customer groups contribute to total product quantity purchased.
+Therefore, the business requires a structured approach to group customers according to their purchasing patterns and profitability.
+3. Project Goal : 
+The main goal of this project is to identify different customer groups using machine learning and analyse their purchasing behaviour and business contribution through Power BI.
+The analysis aims to help the business understand:
+* How customers are distributed across different segments.
+* Which segments generate higher average sales.
+* Which segments generate higher average profits.
+* Which segments have higher average order values.
+* Which segments contribute more to the total quantity purchased.
+* How customer segments differ in their purchasing behaviour.
+4. Project Objectives : 
+The major objectives of this analysis are:
+1. To identify meaningful customer segments using K-Means clustering.
+2. To understand the distribution of customers across five clusters.
+3. To compare average sales generated by each customer segment.
+4. To evaluate average profitability across different segments.
+5. To identify segments with higher average order values.
+6. To understand the contribution of each segment to the total quantity purchased.
+7. To provide business recommendations based on customer behaviour and profitability.
+5. Dataset Description :
+1. Dataset Overview :
+The analysis uses customer-level information derived from the e-commerce sales dataset.
+The customer segmentation analysis includes approximately 24,911 unique customers.
+The customer-level features were prepared by aggregating transaction information for each customer.
+2. Features Used for Customer Segmentation :
+Seven features were used for the K-Means clustering model:
+Feature
+	Description
+	Total Orders
+	Total number of orders placed by a customer
+	Total Quantity
+	Total quantity of products purchased
+	Total Sales
+	Total sales generated by a customer
+	Total Profit
+	Total profit generated by a customer
+	Profit Margin Percentage
+	Profitability relative to sales
+	Average Order Value
+	Average value of orders placed by a customer
+	Return Rate
+	Proportion of orders returned by a customer
+	These features represent different aspects of customer purchasing behaviour and profitability.
+3. Importance of Feature Selection :  
+The selected features help the clustering algorithm identify differences between customers.
+For example:
+* Total Orders helps identify purchasing frequency.
+* Total Quantity helps understand purchasing volume.
+* Total Sales measures customer revenue contribution.
+* Total Profit helps evaluate customer profitability.
+* Profit Margin Percentage measures profitability relative to sales.
+* Average Order Value identifies customers who spend more per order.
+* Return Rate helps understand customer return behaviour.
+Using these features allows the business to analyse customers from multiple perspectives instead of considering sales alone.
+4. Methodology – Customer Segmentation Using K-Means
+1. What Is K-Means Clustering?
+K-Means is an unsupervised machine learning algorithm used to group similar data points into clusters.
+In customer segmentation, each customer is represented by a set of numerical features.
+The algorithm groups customers with similar feature patterns into the same cluster.
+Customers belonging to different clusters have relatively different purchasing or profitability characteristics.
+2. Data Standardization :
+Before applying K-Means, the selected numerical features were standardized using StandardScaler.
+Standardization is important because the selected features have different scales.
+For example:
+* Total Sales may have values in thousands.
+* Total Orders may have smaller numerical values.
+* Profit Margin Percentage may have a different numerical range.
+Without standardization, features with larger numerical values could have a greater influence on the distance calculations.
+StandardScaler transforms the features so that they are measured on comparable scales.
+3. Selecting the Number of Clusters :
+The Elbow Method and Silhouette Score were used to evaluate the appropriate number of clusters.
+Elbow Method:
+The Elbow Method evaluates the within-cluster sum of squared distances for different cluster counts.
+The objective is to identify a point where increasing the number of clusters provides diminishing improvement.
+Silhouette Score:
+The Silhouette Score evaluates how well customers fit within their assigned clusters compared with neighbouring clusters.
+A higher score generally indicates better-defined clusters.
+Based on the clustering evaluation, five clusters were selected for the analysis.
+4. Final Clustering :
+The K-Means algorithm assigned each customer to one of five clusters:
+* Cluster 0
+* Cluster 1
+* Cluster 2
+* Cluster 3
+* Cluster 4
+These cluster numbers are identifiers generated by the algorithm. They do not represent rankings.
+5. Cluster Profiling :
+After assigning customers to clusters, customer features were grouped by cluster and their mean values were calculated.
+This profiling step helps understand the characteristics of customers belonging to each cluster.
+The resulting cluster profile was imported into Power BI for visualization.
+5. Power BI Dashboard Development
+1. Dashboard Overview : 
+The Customer Segmentation Analysis dashboard was developed in Power BI to present the clustering results in an understandable and interactive format.
+The dashboard combines KPI cards, tables, a donut chart, a pie chart, and comparison charts.
+The purpose is to provide a clear understanding of customer distribution, sales performance, profitability, order value, and purchasing volume.
+2. Key Performance Indicators : 
+Four KPI cards are included at the top of the dashboard.
+KPI 1: Profit Margin – 46.69%
+Purpose:
+To provide an overall indication of business profitability relative to sales.
+Business relevance:
+It helps stakeholders understand the proportion of sales retained as profit.
+Interpretation:
+The dashboard displays a profit margin of 46.69%. The exact interpretation depends on whether the measure is calculated using total profit divided by total sales or as an unweighted average of cluster margins.
+KPI 2: Total Customers – 24,911
+Purpose:
+To display the total number of unique customers included in the segmentation analysis.
+Business relevance:
+It provides an overview of the customer population being analysed.
+KPI 3: Total Segments – 5
+Purpose:
+To display the number of customer groups identified through K-Means clustering.
+Business relevance:
+It helps stakeholders understand how many distinct customer segments were created.
+KPI 4: Total Orders – 138,116
+Purpose:
+To display the total number of orders represented in the dataset.
+Business relevance:
+It provides an overview of the transaction volume associated with the analysis.
+6. Visual-Level Analysis :
+1. Customer Distribution Table
+Visual Type: Table
+Title: Customer Distribution by Segment
+Business Question:
+How are customers distributed across the five identified clusters?
+Purpose of the Visual:
+This table provides the exact number and percentage of customers belonging to each cluster.
+A table was selected because it allows stakeholders to compare numerical values accurately.
+Fields Used:
+* Cluster
+* Total Customers
+* Customer Share %
+Key Observations:
+Cluster
+	Customers
+	Customer Share
+	1
+	7,169
+	28.78%
+	0
+	6,514
+	26.15%
+	4
+	4,211
+	16.90%
+	2
+	4,079
+	16.37%
+	3
+	2,938
+	11.79%
+	Total
+	24,911
+	100%
+	Business Insights:
+* Cluster 1 represents the largest customer segment.
+* Cluster 0 is the second-largest segment.
+* Cluster 3 represents the smallest customer segment.
+Business Impact:
+The company can use this information to understand the size of each customer group and allocate marketing and customer engagement efforts accordingly.
+2. Customer Distribution by Segment
+Visual Type: Donut Chart
+Title: Customer Distribution by Segment
+Business Question:
+What proportion of the total customer population belongs to each cluster?
+Purpose of the Visual:
+A donut chart was selected to provide a quick visual comparison of customer proportions.
+The table provides exact values, while the donut chart helps stakeholders understand the relative size of each segment at a glance.
+Fields Used:
+* Legend: Cluster
+* Values: Total Customers
+Key Observations:
+* Cluster 1 has the largest customer share at 28.78%.
+* Cluster 0 contributes 26.15%.
+* Cluster 3 has the smallest share at 11.79%.
+Business Impact:
+The business can identify its largest customer groups and plan targeted communication, marketing, and retention strategies.
+3. Average Order Value by Customer Segment
+Visual Type: Matrix / Table
+Title: Average Order Value by Customer Segment
+Business Question:
+Which customer segment spends more on average per order?
+Purpose of the Visual:
+This visual compares the average order value across the five clusters.
+A table was selected because it provides the exact AOV values and allows straightforward comparison.
+Fields Used:
+* Rows: Cluster
+* Values: Average Order Value
+Key Observations:
+Cluster
+	Average Order Value
+	
+
+	
+
+	0
+	946.80
+	1
+	1,227.05
+	2
+	2,068.66
+	3
+	1,102.58
+	4
+	1,802.90
+	Business Insights:
+* Cluster 2 has the highest average order value at approximately 2,068.66.
+* Cluster 4 has the second-highest average order value at approximately 1,802.90.
+* Cluster 0 has the lowest average order value at approximately 946.80.
+Business Impact:
+The business can study the purchasing preferences of Cluster 2 customers and develop suitable premium product recommendations, cross-selling, and upselling strategies.
+For lower-AOV segments, product bundling and relevant promotional offers may help increase order value.
+4. Average Sales by Customer Segment
+Visual Type: Horizontal Bar Chart
+Title: Average Sales by Customer Segment
+Business Question:
+Which customer segment generates the highest average sales per customer?
+Purpose of the Visual:
+A horizontal bar chart was selected to compare average sales across the five clusters.
+The bar lengths make it easy to identify the highest- and lowest-performing segments.
+Fields Used:
+* Y-axis: Cluster
+* X-axis: Average Sales
+Key Observations:
+Cluster
+	Average Sales
+	0
+	3.3K
+	1
+	8.1K
+	2
+	8.5K
+	3
+	4.7K
+	4
+	14.7K
+	Business Insights:
+* Cluster 4 has the highest average sales at approximately 14.7K.
+* Cluster 2 follows with approximately 8.5K.
+* Cluster 0 has the lowest average sales at approximately 3.3K.
+Business Impact:
+Cluster 4 is an important segment from a customer revenue perspective.
+The business can focus on retaining these customers and encouraging repeat purchases through personalized offers and loyalty initiatives.
+The company can also investigate why Cluster 0 has lower average sales and identify suitable opportunities to improve its purchasing contribution.
+5. Average Profit by Customer Segment
+Visual Type: Clustered Column Chart
+Title: Average Profit by Customer Segment
+Business Question:
+Which customer segment generates the highest average profit per customer?
+Purpose of the Visual:
+Sales alone do not provide a complete understanding of business performance.
+A customer segment may generate high sales but may not necessarily generate equally high profit.
+Therefore, this visual compares average profit across all five clusters.
+A column chart was selected because it provides a clear comparison of profit values across categories.
+Fields Used:
+* X-axis: Cluster
+* Y-axis: Average Profit
+Key Observations:
+Cluster
+	Average Profit
+	0
+	1.5K
+	1
+	3.5K
+	2
+	2.5K
+	3
+	2.3K
+	4
+	5.9K
+	Business Insights:
+* Cluster 4 generates the highest average profit at approximately 5.9K.
+* Cluster 1 generates approximately 3.5K.
+* Cluster 0 generates the lowest average profit at approximately 1.5K.
+Business Impact:
+Cluster 4 represents an important customer group from a profitability perspective.
+The business can prioritize customer retention and loyalty initiatives for this segment.
+The company can also study the purchasing characteristics of lower-profit segments and identify opportunities to improve their profitability.
+6. Total Quantity Contribution by Customer Segment
+Visual Type: Pie Chart
+Title: Total Quantity Contribution by Customer Segment
+Business Question:
+Which customer segment contributes the highest share of the total quantity purchased?
+Purpose of the Visual:
+A pie chart was selected because the objective is to show how the total quantity purchased is divided across the five customer segments.
+Unlike an average quantity chart, this visual uses the customer-level total quantity and sums it by cluster.
+Fields Used:
+* Legend: Cluster
+* Values: Customer-level Total Quantity
+* Aggregation: Sum
+Key Observations:
+Cluster
+	Share of Total Quantity
+	1
+	33.63%
+	4
+	29.09%
+	2
+	14.84%
+	0
+	14.28%
+	3
+	8.17%
+	Business Insights:
+* Cluster 1 contributes the highest share of total quantity purchased at 33.63%.
+* Cluster 4 contributes the second-highest share at 29.09%.
+* Cluster 3 contributes the lowest share at 8.17%.
+Business Impact:
+The company can use this information to understand which customer groups contribute more to purchasing volume.
+It may help support inventory planning, product promotions, and customer-specific marketing strategies.
+
+
+Order Return Prediction – Power BI Report Documentation
+1. Introduction :
+The Order Return Prediction report is designed to analyze actual product returns and identify potential future returns using a Machine Learning prediction model.
+This report combines historical order-return information with Machine Learning predictions to help businesses understand return patterns, evaluate model performance, and identify orders that have a higher probability of being returned.
+The dashboard provides an overview of actual returns, predicted returns, return classification, predicted return distribution, and model evaluation metrics.
+The main objective is to help businesses make proactive decisions to reduce product returns, minimize operational costs, and improve customer satisfaction.
+2. Business Problem : 
+Product returns are one of the major challenges in e-commerce businesses.
+A high return rate can result in:
+* Increased reverse logistics costs.
+* Additional warehouse and inventory management expenses.
+* Revenue and profitability losses.
+* Increased workload for customer support teams.
+* Reduced customer satisfaction.
+Traditional reporting methods analyze returns only after they happen. However, businesses also need to identify orders that are likely to be returned before the return actually occurs.
+Therefore, we developed a Machine Learning model to predict potential product returns and integrated its results into Power BI for business analysis.
+3. Business Objectives :
+The key objectives of this report are:
+1. Analyze actual product returns and the overall return rate.
+2. Identify potential returns using Machine Learning predictions.
+3. Compare actual return classifications with predicted classifications.
+4. Understand the distribution of predicted returned and non-returned orders.
+5. Evaluate the performance of the Machine Learning model.
+6. Help businesses identify potential return risks and take preventive actions.
+4. Key Performance Indicators (KPIs)
+The report contains five important KPI cards.
+KPI
+	Value
+	Business Meaning
+	Total Orders
+	28K
+	Total number of orders considered in the report.
+	Actual Returns
+	2K
+	Number of orders actually returned.
+	Actual Return Rate
+	6.85%
+	Percentage of total orders that were returned.
+	Predicted Returns
+	5K
+	Number of orders classified as potential returns.
+	KPI Explanation :
+1. Total Orders :
+Represents the total number of orders included in the prediction analysis. It provides the overall volume against which actual and predicted returns are measured.
+2. Actual Returns :
+Shows the number of orders that were actually returned by customers.
+3. Actual Return Rate
+Measures the percentage of orders that were returned.
+Formula:
+Actual Return Rate = (Actual Returns / Total Orders) × 100
+The actual return rate is 6.85%, meaning approximately 7 out of every 100 orders were returned.
+4. Predicted Returns : 
+Represents the number of orders identified by the Machine Learning model as potential returns.
+The model predicted approximately 5K orders as returns, which is higher than the actual number of returned orders.
+This indicates that the model identifies a broader group of potentially risky orders that may require further investigation.
+5. Visualizations and Their Business Purpose
+Visual 1: Actual vs Predicted Return Classification :
+Chart Type: Clustered Bar Chart
+Purpose:
+This visualization compares actual return classifications with the predicted classifications generated by the Machine Learning model.
+It contains two categories:
+* Not Returned
+* Returned
+The chart helps us understand how accurately the model classifies returned and non-returned orders.
+Key Observations:
+* Approximately 22.5K non-returned orders were correctly classified.
+* Approximately 3.2K non-returned orders were incorrectly predicted as returned.
+* Approximately 1.7K returned orders were correctly identified.
+* Approximately 0.2K returned orders were incorrectly classified as non-returned.
+Business Interpretation:
+The model successfully identifies most of the actual returned orders. However, some non-returned orders are incorrectly flagged as potential returns.
+This comparison helps businesses understand the model's classification performance and identify areas where predictions can be improved.
+Visual 2: Predicted Return Distribution :
+Chart Type: Doughnut Chart
+Purpose:
+This visualization represents the distribution of orders predicted as returned and not returned by the Machine Learning model.
+Distribution:
+Prediction Category
+	Percentage
+	Not Returned
+	82.18%
+	Returned
+	17.82%
+	Key Observations:
+* 82.18% of orders are predicted as non-returned.
+* 17.82% of orders are predicted as returned.
+* Approximately 5K orders are identified as potential returns.
+Business Interpretation:
+The visualization provides an overall picture of the model's predicted return distribution.
+It helps businesses identify the proportion of orders that may require additional attention.
+The predicted return percentage is higher than the actual return rate, so these predictions should be treated as risk indicators rather than confirmed returns.
+Visual 3: Model Performance Comparison
+Chart Type: Clustered Column Chart
+Purpose:
+This visualization compares five important evaluation metrics used to measure the performance of the Machine Learning classification model.
+The metrics are ROC-AUC, Recall, Accuracy, F1-Score, and Precision.
+Model Performance Results:
+Evaluation Metric
+	Score
+	ROC-AUC
+	94.71%
+	Recall
+	90.80%
+	Accuracy
+	87.77%
+	F1-Score
+	50.42%
+	Precision
+	34.90%
+	Explanation of Evaluation Metrics:
+1. ROC-AUC – 94.71%
+ROC-AUC measures how effectively the model distinguishes between returned and non-returned orders across different classification thresholds.
+A score of 94.71% indicates strong discrimination ability.
+2. Recall – 90.80%
+Recall measures how many actual returned orders were correctly identified by the model.
+A recall of 90.80% means the model identifies approximately 91 out of every 100 actual returned orders.
+3. Accuracy – 87.77%
+Accuracy measures the percentage of total predictions that were correct.
+An accuracy of 87.77% means approximately 88 out of every 100 predictions were correctly classified.
+4. F1-Score – 50.42%
+F1-Score is the harmonic mean of Precision and Recall.
+It provides a balance between identifying actual returns and avoiding incorrect return predictions.
+The score of 50.42% indicates that there is room for improvement in balancing precision and recall.
+5. Precision – 34.90%
+Precision measures how many orders predicted as returned were actually returned.
+A precision of 34.90% means approximately 35 out of every 100 orders predicted as returned were actually returned.
+This indicates that the model generates a considerable number of false-positive predictions.
+6. Overall Key Business Insights :
+1. The actual return rate is 6.85%, indicating that approximately 7% of total orders were returned.
+2. The Machine Learning model identified approximately 5K orders as potential returns.
+3. Around 17.82% of orders were predicted as returned, compared with an actual return rate of 6.85%.
+4. The model achieved a high recall of 90.80%, meaning it successfully identifies most actual returned orders.
+5. ROC-AUC of 94.71% indicates strong ability to distinguish between the two return categories.
+6. Precision of 34.90% indicates that several orders predicted as returns were not actually returned.
+7. The F1-Score of 50.42% suggests that the model needs further optimization to achieve a better balance between precision and recall.
+7. Business Recommendations :
+Based on the report findings, the following actions can be recommended:
+1. Early Risk Identification: Identify orders with a high predicted return probability and monitor them.
+2. Product Quality Improvement: Investigate products and categories that contribute significantly to returns.
+3. Customer Experience: Improve product descriptions, images, size information, and delivery communication to reduce avoidable returns.
+4. Model Optimization: Improve precision while maintaining a good recall score to reduce unnecessary return alerts.
+5. Targeted Intervention: Focus on high-risk orders instead of treating every order as equally likely to be returned.
+6. Continuous Monitoring: Regularly compare predicted returns with actual returns to evaluate model performance.
+8. Business Impact :
+This report provides valuable insights that can help e-commerce businesses:
+* Identify potential product returns in advance.
+* Reduce unnecessary return-related operational expenses.
+* Improve inventory and reverse logistics planning.
+* Monitor Machine Learning model performance.
+* Make data-driven business decisions.
+* Improve customer experience and operational efficiency.
+The combination of Power BI and Machine Learning helps transform historical order data into actionable business insights.
+
+
+Sales Forecasting & Prediction Analysis
+1. Introduction :
+The Sales Forecasting & Prediction Analysis report focuses on analyzing historical sales trends, comparing actual sales with predicted sales, and evaluating the performance of the sales forecasting model.
+The objective is to understand future sales patterns, identify forecasting errors, and provide useful insights that support business planning and decision-making.
+The monthly sales forecasting model was developed using XGBoost.
+2. Business Problem :
+Businesses need to understand future sales demand to make effective decisions regarding inventory, resource allocation, marketing activities, and financial planning.
+Without reliable sales forecasting, businesses may experience:
+* Overstocking or understocking of products.
+* Difficulty planning for seasonal demand.
+* Inaccurate sales expectations.
+* Inefficient resource allocation.
+This report addresses these challenges by comparing actual and predicted sales and identifying variations in forecasting performance.
+3. Objectives :
+* Analyze monthly and quarterly sales performance.
+* Compare actual sales with predicted sales.
+* Evaluate forecasting performance using MAE and MAPE.
+* Identify months with significant forecasting errors.
+* Understand seasonal sales patterns.
+* Support business planning through data-driven insights.
+4. Key Performance Indicators (KPIs) :
+The report includes six KPI cards.
+KPI
+	Result
+	Description
+	Actual Sales
+	₹35.09M
+	Total actual sales during the evaluation period
+	Predicted Sales
+	₹35.41M
+	Total predicted sales
+	Forecast Difference
+	₹0.32M
+	Difference between predicted and actual sales
+	MAPE
+	3.96%
+	Mean Absolute Percentage Error
+	MAE
+	₹101.03K
+	Mean Absolute Error
+	Forecast Accuracy
+	96.04%
+	Calculated as 100% minus MAPE
+	KPI Interpretation :
+* Actual sales were approximately ₹35.09 million.
+* Predicted sales were approximately ₹35.41 million.
+* The model overpredicted total sales by approximately ₹0.32 million.
+* MAPE of 3.96% indicates a relatively low average absolute percentage error.
+* MAE of ₹101.03K represents the average absolute prediction error in the same currency units as sales.
+* Forecast Accuracy of 96.04% is a derived indicator calculated as 100% minus MAPE. It should not be interpreted as an independent accuracy metric.
+5. Report Visualizations and Analysis
+1. Monthly Actual vs Predicted Sales :
+Visual: Line Chart
+Purpose:
+To compare actual monthly sales with predicted monthly sales and understand how closely the forecasting model follows historical sales patterns.
+Key Insights:
+* Sales remained relatively stable from January to October.
+* A significant increase in sales occurred during November and December.
+* December recorded the highest monthly sales, with approximately ₹4.53 million in actual sales.
+* Predicted sales generally followed the actual sales trend.
+Business Impact:
+The business can use these monthly trends to prepare inventory, allocate resources, and plan marketing activities before periods of increased demand.
+2. Forecast Accuracy % :
+Visual: Gauge Chart
+Value: 96.04%
+Purpose:
+To display a derived forecast accuracy indicator based on the model's MAPE.
+Key Insight:
+The model recorded a MAPE of 3.96%, resulting in a derived forecast accuracy indicator of 96.04%.
+Business Impact:
+This provides management with a simple summary of the model's average percentage error. It should be considered alongside MAE, RMSE, and the forecasting baseline comparison.
+3. Monthly Forecast Error :
+Visual: Column Chart
+Purpose:
+To identify monthly differences between actual and predicted sales and highlight periods where forecasting errors were relatively high.
+Values are approximate and follow the signs displayed in the Power BI chart.
+* February recorded the largest negative forecast difference.
+* August recorded the largest positive forecast difference.
+* These months indicate greater deviations between actual and predicted sales.
+Business Impact:
+Investigating months with larger forecast errors can help identify unusual demand patterns and improve future forecasting performance.
+4. Quarterly Sales Performance :
+Visual: Clustered Bar Chart
+Purpose:
+To compare actual and predicted sales across four quarters.
+Key Insights:
+Quarter
+	Actual Sales
+	Predicted Sales
+	Q1
+	₹7.3M
+	₹7.6M
+	Q2
+	₹7.6M
+	₹7.8M
+	Q3
+	₹8.6M
+	₹8.3M
+	Q4
+	₹11.6M
+	₹11.7M
+	* 
+Q4 recorded the highest actual sales of approximately ₹11.6 million.
+* Q1 recorded the lowest actual sales of approximately ₹7.3 million.
+* Sales performance generally increased towards the end of the year.
+* Predicted quarterly sales were relatively close to actual quarterly sales.
+Business Impact:
+The business can prepare additional inventory and operational resources before Q4 to support increased customer demand.
+6. Overall Business Insights :
+   1. Strong year-end performance: November and December recorded a significant increase in monthly sales.
+   2. Highest quarterly contribution: Q4 generated the highest actual sales among all four quarters.
+   3. Forecast performance: The model achieved a MAPE of 3.96%.
+   4. Forecast deviations: February and August recorded relatively large forecast differences.
+   5. Overprediction: Total predicted sales exceeded actual sales by approximately ₹0.32 million.
+7. Business Recommendations : 
+   * Prepare inventory and operational resources ahead of the year-end sales peak.
+   * Investigate the reasons for larger forecasting deviations in February and August.
+   * Monitor actual and predicted sales regularly.
+   * Update the forecasting model as new sales information becomes available.
+   * Compare XGBoost performance with alternative forecasting approaches before selecting the final model for business use.
+8. Conclusion :
+The Sales Forecasting & Prediction Analysis report provides an overview of historical sales patterns, predicted sales, forecasting errors, and quarterly performance.
+The analysis highlights stronger sales performance towards the end of the year, particularly during Q4. The forecasting model achieved a MAPE of 3.96%, while the monthly forecast error analysis identified periods that require further investigation.
+Overall, the report supports better sales planning, inventory management, demand forecasting, and data-driven business decision-making.

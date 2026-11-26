@@ -1,0 +1,300 @@
+# Data Validation Report
+
+## E-Commerce Sales Analytics Project
+
+## 1. Introduction
+
+Data validation is an important stage of the E-Commerce Sales
+Analytics project. The purpose of data validation is to verify the
+quality, consistency, completeness, and reliability of the datasets
+before performing further analysis and dashboard development.
+
+The validation process was performed on all datasets available in
+the raw data folder. The datasets were examined for missing values,
+duplicate records, data types, dataset dimensions, date fields,
+numeric fields, and categorical values.
+
+The results of the validation process are documented in the
+Data Validation folder.
+
+## 2. Datasets Validated
+
+The following datasets were included in the validation process:
+
+1. Customer Master
+2. Dataset Statistics
+3. Sales
+4. Orders
+5. Products
+
+### Dataset Details
+
+| Dataset | Description |
+|---|---|
+| Customer Master | Contains customer-related information |
+| Dataset Statistics | Contains dataset-level statistical information |
+| Sales | Contains e-commerce sales and customer transaction information |
+| Orders | Contains order and item-level information |
+| Products | Contains product catalog information |
+
+
+## 3. Validation Objectives
+
+The main objectives of the data validation process were:
+
+- Verify the number of records and columns in each dataset.
+- Identify missing or null values.
+- Identify duplicate records.
+- Check the data types of important columns.
+- Validate date and time fields.
+- Check numerical columns for unusual or invalid values.
+- Review categorical columns for consistency.
+- Ensure the datasets are suitable for further analysis.
+- Prepare the datasets for Power BI dashboard development.
+
+
+## 4. Dataset Structure Validation
+
+The dimensions of each dataset were checked using the `shape`
+property in Python.
+
+The following information was captured:
+
+- Total number of rows
+- Total number of columns
+- Dataset structure
+
+The validated dataset dimensions were documented in the
+Data Quality Report.
+
+The Data Quality Report is available as:
+
+`Data_Quality_Report.xlsx`
+
+
+## 5. Missing Value Validation
+
+Missing value validation was performed using the pandas
+`isnull()` function.
+
+The following checks were performed:
+
+- Missing values were calculated for every column.
+- Columns containing missing values were identified.
+- The total number of missing values was recorded.
+- Missing value results were documented for further review.
+
+The detailed missing value results are available in:
+
+`Missing_Value_Report.csv`
+
+### Missing Value Assessment
+
+Missing values were not automatically removed during the validation
+stage. They were first identified and documented so that an
+appropriate treatment could be determined based on the business
+meaning of each column.
+
+For example, missing values in optional fields such as campaign
+information or coupon information may have a different meaning from
+missing values in important transaction fields.
+
+Therefore, missing-value handling is considered part of the data
+cleaning and transformation process rather than the validation
+report itself.
+
+
+## 6. Duplicate Record Validation
+
+Duplicate records were checked for all datasets using the pandas
+`duplicated()` function.
+
+The following datasets were checked:
+
+- Customer Master
+- Dataset Statistics
+- Sales
+- Orders
+- Products
+
+The number of duplicate records identified for each dataset was
+documented in:
+
+`Duplicate_Report.csv`
+
+Duplicate validation helps ensure that repeated records do not
+artificially increase sales, customer, product, or order-related
+metrics during analysis.
+
+
+## 7. Data Type Validation
+
+The data types of the dataset columns were reviewed to ensure that
+the columns were stored using appropriate formats.
+
+Particular attention was given to:
+
+- Numeric columns
+- Text/categorical columns
+- Date columns
+- Time columns
+- Customer postal codes
+
+The `order_date` field in the Sales dataset was converted to a
+datetime format using pandas.
+
+The `order_time` field was also converted to a datetime format.
+
+The customer postal code was treated as a text value because postal
+codes are identifiers rather than numerical measures.
+
+
+## 8. Date and Time Validation
+
+The Sales dataset contains order date and order time information.
+
+The following transformations were performed on the Sales dataset:
+
+- Order year
+- Order month
+- Order month name
+- Order day
+- Order weekday
+
+These fields were created from the `order_date` column to support
+time-based analysis.
+
+The date-related fields can be used later for:
+
+- Monthly sales analysis
+- Yearly sales analysis
+- Weekday analysis
+- Seasonal analysis
+- Sales trend analysis
+
+
+## 9. Customer Age Validation
+
+Customer age information was reviewed as part of the customer
+data validation process.
+
+Age groups were created to support customer segmentation:
+
+- 17-25
+- 26-35
+- 36-45
+- 46-55
+- 56-65
+- 66-75
+
+The age-group classification supports customer analysis and helps
+make age-based sales patterns easier to understand.
+
+
+## 10. Numeric Data Validation
+
+Numerical columns were reviewed to identify unusual or potentially
+invalid values.
+
+Important numerical fields reviewed included:
+
+- Quantity
+- Unit price
+- Gross sales
+- Net sales
+- Product cost
+- Profit
+- Discount amount
+- Tax amount
+- Shipping cost
+- Customer acquisition cost
+
+Numerical fields were reviewed before using them for calculations
+and business analysis.
+
+
+## 11. Categorical Data Validation
+
+Categorical columns were reviewed to understand the available
+categories and identify unexpected values.
+
+Examples of categorical fields include:
+
+- Sales channel
+- Order status
+- Return status
+- Marketing channel
+- Payment method
+- Customer segment
+- Product category
+- Product subcategory
+
+Value counts were used during the validation process to review
+the distribution and consistency of categorical values.
+
+
+## 12. Data Quality Summary
+
+The overall data quality was assessed using the following
+validation criteria:
+
+| Validation Area | Status |
+|---|---|
+| Dataset structure | Checked |
+| Row and column counts | Checked |
+| Missing values | Checked |
+| Duplicate records | Checked |
+| Data types | Checked |
+| Date fields | Checked |
+| Time fields | Checked |
+| Numeric fields | Reviewed |
+| Categorical fields | Reviewed |
+| Customer age grouping | Completed |
+
+Detailed results are available in the supporting validation files.
+
+
+## 13. Validation Files
+
+The following files were created as part of the validation process:
+
+### Data_Quality_Report.xlsx
+
+Contains a summary of:
+
+- Dataset names
+- Number of rows
+- Number of columns
+- Missing values
+- Duplicate records
+
+### Missing_Value_Report.csv
+
+Contains column-level missing value information for the datasets.
+
+### Duplicate_Report.csv
+
+Contains the duplicate record count for each dataset.
+
+### Validation_Report.md
+
+Contains the methodology, validation checks, and overall findings
+from the data validation process.
+
+## 14. Conclusion
+
+The datasets were systematically reviewed before proceeding with
+the analysis stage of the E-Commerce Sales Analytics project.
+
+The validation process covered dataset structure, missing values,
+duplicate records, data types, date and time fields, numerical
+fields, and categorical values.
+
+The validation results have been documented and separated from the
+data cleaning process. This allows data-quality issues to be
+identified and reviewed before making transformations that could
+affect the analysis.
+
+After completing the validation and required data-cleaning steps,
+the processed datasets can be used for business analysis and
+Power BI dashboard development.

@@ -1,0 +1,10 @@
+Dataset,Column,Missing Values
+Sales,delivery_days,24557
+Sales,estimated_delivery_days,24557
+Sales,return_status,128654
+Sales,return_reason,128654
+Sales,customer_rating,24557
+Sales,review_sentiment,24557
+Sales,customer_review,24557
+Sales,campaign_name,83233
+Sales,coupon_code,110502
